@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 interface SliderProps {
   items: Array<{
@@ -69,10 +70,11 @@ export default function Slider({
             <div key={item.id} className="w-full h-full flex-shrink-0">
               {item.image ? (
                 <div className="relative w-full h-full">
-                  <img
+                  <Image
                     src={item.image || "/placeholder.svg"}
                     alt={item.title || `Slide ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                   {(item.title || item.description) && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
