@@ -17,25 +17,108 @@ import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion" 
 import { useOutsideClick } from "@/hooks/use-outside-click"
+import NoticeBoard from "@/components/ui/notice-board"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import React from "react";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import {
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
-interface Event {
-  id: string
-  title: string
-  description: string
-  date: string
-  time: string
-  venue: string
-  category: string
-  status: string
-  src: string
-  ctaText: string
-  ctaLink: string
-  content: () => JSX.Element
-}
+import Carousel from "@/components/ui/carousel";
+const slideData = [
+    {
+      title: "Mystic Mountains",
+      button: "Explore Component",
+      src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      title: "Urban Dreams",
+      button: "Explore Component",
+      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      title: "Neon Nights",
+      button: "Explore Component",
+      src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      title: "Desert Whispers",
+      button: "Explore Component",
+      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+  ];
+const testimonials = [
+  {
+    quote:
+      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
+    name: "Charles Dickens",
+    title: "A Tale of Two Cities",
+  },
+  {
+    quote:
+      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
+    name: "William Shakespeare",
+    title: "Hamlet",
+  },
+  {
+    quote: "All that we see or seem is but a dream within a dream.",
+    name: "Edgar Allan Poe",
+    title: "A Dream Within a Dream",
+  },
+  {
+    quote:
+      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+    name: "Jane Austen",
+    title: "Pride and Prejudice",
+  },
+  {
+    quote:
+      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+    name: "Herman Melville",
+    title: "Moby-Dick",
+  },
+];
+const Skeleton = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black"></div>
+);
+const items = [
+  {
+    title: "Best In Field of AI/ML",
+    description: "Explore the birth of groundbreaking ideas and inventions.",
+    header: <Skeleton />,
+    className: "md:col-span-2",
+    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Digital Revolution",
+    description: "Dive into the transformative power of technology.",
+    header: <Skeleton />,
+    className: "md:col-span-1",
+    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Creativity and Innovation",
+    description: "Discover the beauty of thoughtful and functional design.",
+    header: <Skeleton />,
+    className: "md:col-span-1",
+    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "Placements at Fingertips",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    className: "md:col-span-2",
+    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+  },
+];
 
-interface EventsByYear {
-  [year: string]: Event[]
-}
 const sampleItems = [
   {
     id: "1",
@@ -70,7 +153,7 @@ const sampleItems = [
 ]
 
 export default function HomePage() {
-  const [active, setActive] = useState<(typeof eventsByYear)[string][number] | boolean | null>(null)
+  const [active, setActive] = useState<(typeof eventsByYear) [string][number] | boolean | null>(null)
   const ref = useRef<HTMLDivElement>(null)
   const id = useId()
 
@@ -454,10 +537,19 @@ export default function HomePage() {
       </div>
 
       {/* Event Calendar */}
+        <header className="bg-zinc-100 border-b border-gray-200 px-6 py-4 ">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="flex items-center space-x-3">
+            <div>
+              <h1 className="text-lg font-semibold text-gray-800">Academic Event Calendar</h1>
+            </div>
+          </div>
+          <Button className="bg-blue-900 hover:bg-blue-950 text-white px-6 py-2 rounded-full">Read More</Button>
+        </div>
+        </header>
       <div className="flex justify-center text-center flex-col bg-gradient-to-br from-slate-50 to-blue-50 p-10">
+
         <div className="max-w-6xl mx-auto w-full">
-          <h1 className="text-4xl font-bold text-blue-950 mb-2">Academic Event Calendar</h1>
-          <p className="text-lg text-slate-600 mb-8">Department of Computer Science Events & Activities</p>
 
           {/* Modal */}
           <AnimatePresence>
@@ -500,7 +592,7 @@ export default function HomePage() {
                     />
                   </motion.div>
 
-                  <div className="p-6">
+                  <div className="p-2">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex-1">
                         <motion.h3
@@ -634,7 +726,53 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      {/* Notice Board */}
+      <NoticeBoard />
+
+      {/* Feature Section */}
+      <div className="text-center  bg-white">
+        <header className="border-y-1 border-gray-300 p-2 bg-white text-center mb-4">
+        <h1 className="text-2xl font-semibold m-2">Featured Section</h1>
+        </header>
+      <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6">
+      {items.map((item, i) => (
+        <BentoGridItem
+          key={i}
+          title={item.title}
+          description={item.description}
+          header={item.header}
+          className={item.className}
+          icon={item.icon}
+        />
+      ))}
+    </BentoGrid>
     </div>
+    {/* Gallery */}
+    <header className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
+    <h1 className="text-2xl font-semibold m-1">Gallery</h1>
+    </header>
+    <div></div>
+    <div className="relative overflow-hidden w-full h-full py-20">
+      <Carousel slides={slideData} />
+    </div>
+
+
+     {/* Testimonial */}
+     <div>
+     <header className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
+        <h1 className="text-2xl font-semibold m-1">Testimonials</h1>
+        </header>
+    <div>
+      <div className="h-[40rem]   flex flex-col antialiased bg-zinc-100 dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+      <InfiniteMovingCards
+        items={testimonials}
+        direction="right"
+        speed="slow"
+      />
+    </div>
+    </div>
+    </div>
+  </div>
   )
 }
 

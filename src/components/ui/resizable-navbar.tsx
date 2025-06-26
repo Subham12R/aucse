@@ -242,7 +242,6 @@ export const NavbarLogo = () => {
         width={30}
         height={30}
       />
-      <span className="text-lg font-medium text-black dark:text-white">CSE.</span>
     </a>
   );
 };
