@@ -15,44 +15,37 @@ import { Calendar, MapPin, Clock } from "lucide-react"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion" 
+import { AnimatePresence, motion, useInView } from "framer-motion"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 import NoticeBoard from "@/components/ui/notice-board"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils";
-import React from "react";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
-} from "@tabler/icons-react";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
+import { IconClipboardCopy, IconFileBroken, IconSignature, IconTableColumn } from "@tabler/icons-react"
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
 
-import Carousel from "@/components/ui/carousel";
+import Carousel from "@/components/ui/carousel"
 const slideData = [
-    {
-      title: "Mystic Mountains",
-      button: "Explore Component",
-      src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Urban Dreams",
-      button: "Explore Component",
-      src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Neon Nights",
-      button: "Explore Component",
-      src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      title: "Desert Whispers",
-      button: "Explore Component",
-      src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-  ];
+  {
+    title: "Mystic Mountains",
+    button: "Explore Component",
+    src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Urban Dreams",
+    button: "Explore Component",
+    src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Neon Nights",
+    button: "Explore Component",
+    src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    title: "Desert Whispers",
+    button: "Explore Component",
+    src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+]
 const testimonials = [
   {
     quote:
@@ -83,10 +76,10 @@ const testimonials = [
     name: "Herman Melville",
     title: "Moby-Dick",
   },
-];
+]
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black"></div>
-);
+)
 const items = [
   {
     title: "Best In Field of AI/ML",
@@ -111,13 +104,12 @@ const items = [
   },
   {
     title: "Placements at Fingertips",
-    description:
-      "Understand the impact of effective communication in our lives.",
+    description: "Understand the impact of effective communication in our lives.",
     header: <Skeleton />,
     className: "md:col-span-2",
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
-];
+]
 
 const sampleItems = [
   {
@@ -153,9 +145,36 @@ const sampleItems = [
 ]
 
 export default function HomePage() {
-  const [active, setActive] = useState<(typeof eventsByYear) [string][number] | boolean | null>(null)
+  const [active, setActive] = useState<(typeof eventsByYear)[string][number] | boolean | null>(null)
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
+
   const ref = useRef<HTMLDivElement>(null)
   const id = useId()
+
+  const moreMenuItems = [
+    { name: "Faculty", link: "#faculty", icon: "👨‍🏫" },
+    { name: "Research", link: "#research", icon: "🔬" },
+    { name: "Alumni", link: "#alumni", icon: "🎓" },
+    { name: "Placements", link: "#placements", icon: "💼" },
+    { name: "Library", link: "#library", icon: "📚" },
+    { name: "Contact Us", link: "#contact", icon: "📞" },
+  ]
+
+  // Refs for scroll animations
+  const heroRef = useRef(null)
+  const eventsRef = useRef(null)
+  const noticeRef = useRef(null)
+  const featuresRef = useRef(null)
+  const galleryRef = useRef(null)
+  const testimonialsRef = useRef(null)
+
+  // InView hooks for scroll animations
+  const heroInView = useInView(heroRef, { once: true, margin: "-100px" })
+  const eventsInView = useInView(eventsRef, { once: true, margin: "-100px" })
+  const noticeInView = useInView(noticeRef, { once: true, margin: "-100px" })
+  const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
+  const galleryInView = useInView(galleryRef, { once: true, margin: "-100px" })
+  const testimonialsInView = useInView(testimonialsRef, { once: true, margin: "-100px" })
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -175,6 +194,45 @@ export default function HomePage() {
   }, [active])
 
   useOutsideClick(ref, () => setActive(null))
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -60 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 60 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  }
 
   const navItems = [
     {
@@ -199,10 +257,6 @@ export default function HomePage() {
     },
     {
       name: "Infrastructure",
-      link: "#contact",
-    },
-    {
-      name: "More",
       link: "#contact",
     },
   ]
@@ -481,10 +535,61 @@ export default function HomePage() {
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
+          <div className="flex items-center space-x-1">
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">Apply Now</NavbarButton>
+        
+          {/* More Dropdown */}
+            <div className="relative">
+              <button
+                onMouseEnter={() => setIsMoreDropdownOpen(true)}
+                onMouseLeave={() => setIsMoreDropdownOpen(false)}
+                className="flex items-center space-x-1 text-neutral-600 dark:text-neutral-300 hover:text-blue-600 transition-colors duration-200 py-2"
+              >
+                <NavbarButton variant="primary">More</NavbarButton>
+                <motion.svg
+                  animate={{ rotate: isMoreDropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </motion.svg>
+              </button>
+
+              <AnimatePresence>
+                {isMoreDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    onMouseEnter={() => setIsMoreDropdownOpen(true)}
+                    onMouseLeave={() => setIsMoreDropdownOpen(false)}
+                    className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-200 dark:border-neutral-700 py-2 z-50"
+                  >
+                    {moreMenuItems.map((item, index) => (
+                      <motion.a
+                        key={item.name}
+                        href={item.link}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="flex items-center space-x-3 px-4 py-3 text-neutral-700 dark:text-neutral-300 hover:bg-blue-50 dark:hover:bg-neutral-700 hover:text-blue-600 transition-all duration-200 group"
+                      >
+                        <span className="text-lg group-hover:scale-110 transition-transform duration-200">
+                          {item.icon}
+                        </span>
+                        <span className="font-medium">{item.name}</span>
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
+
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -515,7 +620,13 @@ export default function HomePage() {
       </Navbar>
 
       {/* Hero */}
-      <div className="flex flex-col overflow-hidden">
+      <motion.div
+        ref={heroRef}
+        initial="hidden"
+        animate={heroInView ? "visible" : "hidden"}
+        variants={fadeInUp}
+        className="flex flex-col overflow-hidden"
+      >
         <ContainerScroll
           titleComponent={
             <>
@@ -534,245 +645,274 @@ export default function HomePage() {
             <Slider items={sampleItems} autoPlay={true} autoPlayInterval={4000} />
           </div>
         </ContainerScroll>
-      </div>
+      </motion.div>
 
       {/* Event Calendar */}
-        <header className="bg-zinc-100 border-b border-gray-200 px-6 py-4 ">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center space-x-3">
-            <div>
-              <h1 className="text-lg font-semibold text-gray-800">Academic Event Calendar</h1>
+      <motion.div
+        ref={eventsRef}
+        initial="hidden"
+        animate={eventsInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+      >
+        <motion.header variants={fadeInUp} className="bg-zinc-100 border-b border-gray-200 px-6 py-4">
+          <div className="flex items-center justify-between max-w-7xl mx-auto">
+            <div className="flex items-center space-x-3">
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">Academic Event Calendar</h1>
+              </div>
             </div>
+            <Button className="bg-blue-900 hover:bg-blue-950 text-white px-6 py-2 rounded-full">Read More</Button>
           </div>
-          <Button className="bg-blue-900 hover:bg-blue-950 text-white px-6 py-2 rounded-full">Read More</Button>
-        </div>
-        </header>
-      <div className="flex justify-center text-center flex-col bg-gradient-to-br from-slate-50 to-blue-50 p-10">
+        </motion.header>
 
-        <div className="max-w-6xl mx-auto w-full">
-
-          {/* Modal */}
-          <AnimatePresence>
-            {active && typeof active === "object" && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/20 h-full w-full z-10"
-              />
-            )}
-          </AnimatePresence>
-
-          <AnimatePresence>
-            {active && typeof active === "object" ? (
-              <div className="fixed inset-0 grid place-items-center z-[100] p-4">
-                <motion.button
-                  key={`button-${active.title}-${id}`}
-                  layout
+        <motion.div
+          variants={fadeInUp}
+          className="flex justify-center text-center flex-col bg-gradient-to-br from-slate-50 to-blue-50 p-10"
+        >
+          <div className="max-w-6xl mx-auto w-full">
+            {/* Modal */}
+            <AnimatePresence>
+              {active && typeof active === "object" && (
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                  className="flex absolute top-4 right-4 lg:top-2 lg:right-2 items-center justify-center bg-white rounded-full h-8 w-8 shadow-lg z-10"
-                  onClick={() => setActive(null)}
-                >
-                  <CloseIcon />
-                </motion.button>
-                <motion.div
-                  layoutId={`card-${active.title}-${id}`}
-                  ref={ref}
-                  className="w-full max-w-2xl h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl"
-                >
-                  <motion.div layoutId={`image-${active.title}-${id}`}>
-                    <img
-                      width={200}
-                      height={200}
-                      src={active.src || "/placeholder.svg"}
-                      alt={active.title}
-                      className="w-full h-64 object-cover"
-                    />
-                  </motion.div>
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/20 h-full w-full z-10"
+                />
+              )}
+            </AnimatePresence>
 
-                  <div className="p-2">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex-1">
-                        <motion.h3
-                          layoutId={`title-${active.title}-${id}`}
-                          className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-2"
+            <AnimatePresence>
+              {active && typeof active === "object" ? (
+                <div className="fixed inset-0 grid place-items-center z-[100] p-4">
+                  <motion.button
+                    key={`button-${active.title}-${id}`}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                    className="flex absolute top-4 right-4 lg:top-2 lg:right-2 items-center justify-center bg-white rounded-full h-8 w-8 shadow-lg z-10"
+                    onClick={() => setActive(null)}
+                  >
+                    <CloseIcon />
+                  </motion.button>
+                  <motion.div
+                    layoutId={`card-${active.title}-${id}`}
+                    ref={ref}
+                    className="w-full max-w-2xl h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl"
+                  >
+                    <motion.div layoutId={`image-${active.title}-${id}`}>
+                      <img
+                        width={200}
+                        height={200}
+                        src={active.src || "/placeholder.svg"}
+                        alt={active.title}
+                        className="w-full h-64 object-cover"
+                      />
+                    </motion.div>
+
+                    <div className="p-2">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex-1">
+                          <motion.h3
+                            layoutId={`title-${active.title}-${id}`}
+                            className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-2"
+                          >
+                            {active.title}
+                          </motion.h3>
+                          <motion.p
+                            layoutId={`description-${active.description}-${id}`}
+                            className="text-neutral-600 dark:text-neutral-400 text-lg"
+                          >
+                            {active.description}
+                          </motion.p>
+                        </div>
+                        <motion.a
+                          layoutId={`button-${active.title}-${id}`}
+                          href={active.ctaLink}
+                          target="_blank"
+                          className="px-6 py-3 text-sm rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors ml-4"
+                          rel="noreferrer"
                         >
-                          {active.title}
-                        </motion.h3>
-                        <motion.p
-                          layoutId={`description-${active.description}-${id}`}
-                          className="text-neutral-600 dark:text-neutral-400 text-lg"
-                        >
-                          {active.description}
-                        </motion.p>
+                          {active.ctaText}
+                        </motion.a>
                       </div>
-                      <motion.a
-                        layoutId={`button-${active.title}-${id}`}
-                        href={active.ctaLink}
-                        target="_blank"
-                        className="px-6 py-3 text-sm rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors ml-4"
-                        rel="noreferrer"
-                      >
-                        {active.ctaText}
-                      </motion.a>
-                    </div>
 
-                    <div className="relative">
-                      <motion.div
-                        layout
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="text-neutral-700 dark:text-neutral-300 max-h-96 overflow-auto"
-                      >
-                        {typeof active.content === "function" ? active.content() : active.content}
-                      </motion.div>
+                      <div className="relative">
+                        <motion.div
+                          layout
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="text-neutral-700 dark:text-neutral-300 max-h-96 overflow-auto"
+                        >
+                          {typeof active.content === "function" ? active.content() : active.content}
+                        </motion.div>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </div>
-            ) : null}
-          </AnimatePresence>
-
-          {/* Yearly Sections */}
-          <div className="space-y-12">
-            {Object.entries(eventsByYear).map(([year, events]) => (
-              <div key={year} className="text-left">
-                <div className="flex items-center mb-6">
-                  <h2 className="text-3xl font-bold text-blue-900 mr-4">{year}</h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
+                  </motion.div>
                 </div>
+              ) : null}
+            </AnimatePresence>
 
-                <div className="grid gap-4">
-                  {events.map((event) => (
-                    <motion.div
-                      layoutId={`card-${event.title}-${id}`}
-                      key={`card-${event.title}-${id}`}
-                      onClick={() => setActive(event)}
-                      className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border border-slate-200 hover:border-blue-200"
-                    >
-                      <div className="p-6">
-                        <div className="flex flex-col lg:flex-row gap-6">
-                          <motion.div layoutId={`image-${event.title}-${id}`} className="flex-shrink-0">
-                            <img
-                              width={120}
-                              height={120}
-                              src={event.src || "/placeholder.svg"}
-                              alt={event.title}
-                              className="w-full lg:w-32 h-32 rounded-lg object-cover"
-                            />
-                          </motion.div>
+            {/* Yearly Sections */}
+            <div className="space-y-12">
+              {Object.entries(eventsByYear).map(([year, events], yearIndex) => (
+                <motion.div key={year} variants={fadeInLeft} className="text-left">
+                  <div className="flex items-center mb-6">
+                    <h2 className="text-3xl font-bold text-blue-900 mr-4">{year}</h2>
+                    <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
+                  </div>
 
-                          <div className="flex-1 min-w-0">
-                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                              <div className="flex-1">
-                                <motion.h3
-                                  layoutId={`title-${event.title}-${id}`}
-                                  className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2"
-                                >
-                                  {event.title}
-                                </motion.h3>
-                                <motion.p
-                                  layoutId={`description-${event.description}-${id}`}
-                                  className="text-neutral-600 dark:text-neutral-400 mb-3"
-                                >
-                                  {event.description}
-                                </motion.p>
+                  <motion.div variants={staggerContainer} className="grid gap-4">
+                    {events.map((event, eventIndex) => (
+                      <motion.div
+                        key={`card-${event.title}-${id}`}
+                        layoutId={`card-${event.title}-${id}`}
+                        variants={yearIndex % 2 === 0 ? fadeInLeft : fadeInRight}
+                        onClick={() => setActive(event)}
+                        className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border border-slate-200 hover:border-blue-200"
+                        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                      >
+                        <div className="p-6">
+                          <div className="flex flex-col lg:flex-row gap-6">
+                            <motion.div layoutId={`image-${event.title}-${id}`} className="flex-shrink-0">
+                              <img
+                                width={120}
+                                height={120}
+                                src={event.src || "/placeholder.svg"}
+                                alt={event.title}
+                                className="w-full lg:w-32 h-32 rounded-lg object-cover"
+                              />
+                            </motion.div>
 
-                                <div className="flex flex-wrap gap-4 text-sm text-neutral-600 mb-3">
-                                  <div className="flex items-center gap-1">
-                                    <Calendar className="h-4 w-4 text-blue-600" />
-                                    <span>{event.date}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <Clock className="h-4 w-4 text-blue-600" />
-                                    <span>{event.time}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <MapPin className="h-4 w-4 text-blue-600" />
-                                    <span>{event.venue}</span>
-                                  </div>
-                                </div>
-
-                                <div className="flex gap-2">
-                                  <span
-                                    className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                                <div className="flex-1">
+                                  <motion.h3
+                                    layoutId={`title-${event.title}-${id}`}
+                                    className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2"
                                   >
-                                    {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
-                                  </span>
-                                  <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
-                                    {event.category}
-                                  </span>
-                                </div>
-                              </div>
+                                    {event.title}
+                                  </motion.h3>
+                                  <motion.p
+                                    layoutId={`description-${event.description}-${id}`}
+                                    className="text-neutral-600 dark:text-neutral-400 mb-3"
+                                  >
+                                    {event.description}
+                                  </motion.p>
 
-                              <motion.button
-                                layoutId={`button-${event.title}-${id}`}
-                                className="px-6 py-2 text-sm rounded-full font-semibold bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 transition-all duration-200 whitespace-nowrap"
-                              >
-                                {event.ctaText}
-                              </motion.button>
+                                  <div className="flex flex-wrap gap-4 text-sm text-neutral-600 mb-3">
+                                    <div className="flex items-center gap-1">
+                                      <Calendar className="h-4 w-4 text-blue-600" />
+                                      <span>{event.date}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Clock className="h-4 w-4 text-blue-600" />
+                                      <span>{event.time}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <MapPin className="h-4 w-4 text-blue-600" />
+                                      <span>{event.venue}</span>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex gap-2">
+                                    <span
+                                      className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}
+                                    >
+                                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                                    </span>
+                                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                                      {event.category}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                <motion.button
+                                  layoutId={`button-${event.title}-${id}`}
+                                  className="px-6 py-2 text-sm rounded-full font-semibold bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 transition-all duration-200 whitespace-nowrap"
+                                >
+                                  {event.ctaText}
+                                </motion.button>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            ))}
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
+
       {/* Notice Board */}
-      <NoticeBoard />
+      <motion.div ref={noticeRef} initial="hidden" animate={noticeInView ? "visible" : "hidden"} variants={fadeInUp}>
+        <NoticeBoard />
+      </motion.div>
 
       {/* Feature Section */}
-      <div className="text-center  bg-white">
-        <header className="border-y-1 border-gray-300 p-2 bg-white text-center mb-4">
-        <h1 className="text-2xl font-semibold m-2">Featured Section</h1>
-        </header>
-      <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={item.className}
-          icon={item.icon}
-        />
-      ))}
-    </BentoGrid>
-    </div>
-    {/* Gallery */}
-    <header className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
-    <h1 className="text-2xl font-semibold m-1">Gallery</h1>
-    </header>
-    <div></div>
-    <div className="relative overflow-hidden w-full h-full py-20">
-      <Carousel slides={slideData} />
-    </div>
+      <motion.div
+        ref={featuresRef}
+        initial="hidden"
+        animate={featuresInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+        className="text-center bg-white"
+      >
+        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-white text-center mb-4">
+          <h1 className="text-2xl font-semibold m-2">Featured Section</h1>
+        </motion.header>
+        <motion.div variants={fadeInUp}>
+          <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6">
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={item.className}
+                icon={item.icon}
+              />
+            ))}
+          </BentoGrid>
+        </motion.div>
+      </motion.div>
 
+      {/* Gallery */}
+      <motion.div
+        ref={galleryRef}
+        initial="hidden"
+        animate={galleryInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+      >
+        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
+          <h1 className="text-2xl font-semibold m-1">Gallery</h1>
+        </motion.header>
+        <motion.div variants={fadeInUp} className="relative overflow-hidden w-full h-full py-20">
+          <Carousel slides={slideData} />
+        </motion.div>
+      </motion.div>
 
-     {/* Testimonial */}
-     <div>
-     <header className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
-        <h1 className="text-2xl font-semibold m-1">Testimonials</h1>
-        </header>
-    <div>
-      <div className="h-[40rem]   flex flex-col antialiased bg-zinc-100 dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-      <InfiniteMovingCards
-        items={testimonials}
-        direction="right"
-        speed="slow"
-      />
+      {/* Testimonial */}
+      <motion.div
+        ref={testimonialsRef}
+        initial="hidden"
+        animate={testimonialsInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+      >
+        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
+          <h1 className="text-2xl font-semibold m-1">Testimonials</h1>
+        </motion.header>
+        <motion.div variants={fadeInUp}>
+          <div className="h-[40rem] flex flex-col antialiased bg-zinc-100 dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+            <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
+          </div>
+        </motion.div>
+      </motion.div>
     </div>
-    </div>
-    </div>
-  </div>
   )
 }
 
