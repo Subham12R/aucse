@@ -20,31 +20,31 @@ const sampleItems = [
     id: "1",
     title: "Beautiful Landscape",
     description: "A stunning view of mountains and valleys",
-    image: "../1.jpg",
+    image: "/1.jpg",
   },
   {
     id: "2",
     title: "City Skyline",
     description: "Modern architecture against the evening sky",
-    image: "../2.jpg",
+    image: "/2.jpg",
   },
   {
     id: "3",
     title: "Ocean Waves",
     description: "Peaceful waves crashing on the shore",
-    image: "../3.jpg",
+    image: "/3.jpg",
   },
     {
     id: "4",
     title: "Ocean Waves",
     description: "Peaceful waves crashing on the shore",
-    image: "../4.jpg",
+    image: "/4.jpg",
   },
     {
     id: "5",
     title: "Adamas",
     description: "Peaceful waves crashing on the shore",
-    image: "../5.jpg",
+    image: "/5.jpg",
   },
   
 ]
