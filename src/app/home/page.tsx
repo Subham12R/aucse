@@ -26,6 +26,7 @@ import Image from "next/image"
 import Carousel from "@/components/ui/carousel"
 import { ChevronUp, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import Component from "@/components/ui/university-section"
 
 const slideData = [
   {
@@ -481,6 +482,7 @@ const fadeInUp: Variants = {
         </ContainerScroll>
       </motion.div>
 
+
       {/* Events Section */}
       <motion.section
         ref={eventsRef}
@@ -635,6 +637,9 @@ const fadeInUp: Variants = {
           </div>
         </div>
       </motion.section>
+
+      {/* Faculty Section */}
+        <Component />
       {/* Notice Board */}
       <motion.div ref={noticeRef} initial="hidden" animate={noticeInView ? "visible" : "hidden"} variants={fadeInUp}>
         <NoticeBoard />
