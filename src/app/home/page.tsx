@@ -14,7 +14,7 @@ import { Calendar, MapPin, Clock } from "lucide-react"
 
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import { AnimatePresence, motion, useInView } from "framer-motion"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 import NoticeBoard from "@/components/ui/notice-board"
@@ -26,32 +26,6 @@ import Image from "next/image"
 import Carousel from "@/components/ui/carousel"
 import { ChevronUp, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-
-interface EventDetails {
-  date: string
-  location: string
-  time: string
-}
-
-interface Event {
-  id: string
-  title: string
-  description: string
-  date: string
-  time: string
-  venue: string
-  category: string
-  status: string
-  src: string
-  ctaText: string
-  content: string
-  details?: EventDetails
-  contact?: string
-  likes: number
-  comments: number
-  shares: number
-  isPinned?: boolean
-}
 
 const slideData = [
   {
@@ -175,7 +149,7 @@ const sampleItems = [
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeEvent, setActiveEvent] = useState<Event | null>(null)
+  const [activeEvent, setActiveEvent] = useState<any>(null)
   // Show button when page is scrolled down
   useEffect(() => {
     const toggleVisibility = () => {
@@ -200,10 +174,11 @@ export default function HomePage() {
       behavior: "smooth",
     })
   }
-  const [active, setActive] = useState<Event | boolean | null>(null)
+  const [active, setActive] = useState<(typeof eventsByYear)[string][number] | boolean | null>(null)
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
+  const id = useId()
 
   const moreMenuItems = [
     { name: "Faculty", link: "#faculty", icon: "👨‍🏫" },
@@ -255,6 +230,24 @@ export default function HomePage() {
     visible: {
       opacity: 1,
       y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: -60 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  }
+
+  const fadeInRight = {
+    hidden: { opacity: 0, x: 60 },
+    visible: {
+      opacity: 1,
+      x: 0,
       transition: { duration: 0.6, ease: "easeOut" },
     },
   }
@@ -312,9 +305,6 @@ export default function HomePage() {
         ctaText: "Register Now",
         content:
           "CodeFest 2024 is the annual flagship coding competition organized by the Department of Computer Science. This 48-hour hackathon brings together the brightest minds from across the university to solve real-world problems through innovative technology solutions.",
-        likes: 0,
-        comments: 0,
-        shares: 0,
       },
       {
         id: "2",
@@ -329,9 +319,6 @@ export default function HomePage() {
         ctaText: "View Materials",
         content:
           "Join us for an intensive workshop on Artificial Intelligence and Machine Learning conducted by industry experts. This hands-on session covers the fundamentals of neural networks, deep learning, and practical applications in industry.",
-        likes: 0,
-        comments: 0,
-        shares: 0,
       },
     ],
     "2025": [
@@ -348,12 +335,10 @@ export default function HomePage() {
         ctaText: "Submit Paper",
         content:
           "The Annual Research Symposium brings together faculty, students, and industry experts to present and discuss cutting-edge research in computer science and engineering.",
-        likes: 0,
-        comments: 0,
-        shares: 0,
       },
     ],
   }
+
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -375,9 +360,9 @@ export default function HomePage() {
         <NavBody>
           <NavbarLogo />
           <div className="flex items-center space-x-1">
-            <NavItems items={navItems} />
-
-            {/* More Dropdown */}
+          <NavItems items={navItems} />
+        
+          {/* More Dropdown */}
             <div className="relative">
               <button
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
@@ -428,6 +413,7 @@ export default function HomePage() {
               </AnimatePresence>
             </div>
           </div>
+
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -458,7 +444,7 @@ export default function HomePage() {
       </Navbar>
 
       {/* Hero */}
-
+      
       <motion.div
         ref={heroRef}
         initial="hidden"
@@ -708,7 +694,13 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row items-center gap-10 px-6">
           {/* Logo */}
           <div className="hidden lg:block flex-shrink-0 grayscale">
-            <Image src="/logo.png" alt="Adamas Logo" width={200} height={144} className="h-36 object-contain" />
+            <Image
+              src="/logo.png"
+              alt="Adamas Logo"
+              width={200}
+              height={144}
+              className="h-36 object-contain"
+            />
           </div>
 
           {/* Navigation Columns */}
@@ -780,7 +772,7 @@ export default function HomePage() {
         <div className="text-center text-sm text-gray-200 pb-4">© 2025 Adamas University. All rights reserved.</div>
       </footer>
       {isVisible && (
-        <button
+      <button
           onClick={scrollToTop}
           className="fixed right-6 bottom-6 z-50 bg-blue-900 text-white hover:bg-gray-100 transition-all duration-300 ease-in-out rounded-full p-3 shadow-lg hover:shadow-xl transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
           aria-label="Scroll to top"
