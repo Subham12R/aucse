@@ -22,8 +22,11 @@ import { Button } from "@/components/ui/button"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { IconClipboardCopy, IconFileBroken, IconSignature, IconTableColumn } from "@tabler/icons-react"
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
-
+import Image from "next/image"
 import Carousel from "@/components/ui/carousel"
+import { ChevronUp, X } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+
 const slideData = [
   {
     title: "Mystic Mountains",
@@ -145,6 +148,32 @@ const sampleItems = [
 ]
 
 export default function HomePage() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeEvent, setActiveEvent] = useState<any>(null)
+  // Show button when page is scrolled down
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener("scroll", toggleVisibility)
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility)
+    }
+  }, [])
+
+  // Scroll to top smoothly
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
   const [active, setActive] = useState<(typeof eventsByYear)[string][number] | boolean | null>(null)
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
 
@@ -274,36 +303,8 @@ export default function HomePage() {
         status: "upcoming",
         src: "/logo.png",
         ctaText: "Register Now",
-        ctaLink: "#register",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>March 15-16, 2024</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>9:00 AM - 6:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Computer Lab A & B</span>
-              </div>
-              <div className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs w-fit">Competition</div>
-            </div>
-            <p className="text-neutral-700">
-              CodeFest 2024 is the annual flagship coding competition organized by the Department of Computer Science.
-              This 48-hour hackathon brings together the brightest minds from across the university to solve real-world
-              problems through innovative technology solutions.
-            </p>
-            <p className="text-neutral-700">
-              Participants will work in teams to develop applications, websites, and software solutions while competing
-              for prizes worth $10,000. The event features mentorship from industry professionals, workshops on
-              cutting-edge technologies, and networking opportunities with tech recruiters from top companies.
-            </p>
-          </div>
-        ),
+        content:
+          "CodeFest 2024 is the annual flagship coding competition organized by the Department of Computer Science. This 48-hour hackathon brings together the brightest minds from across the university to solve real-world problems through innovative technology solutions.",
       },
       {
         id: "2",
@@ -316,123 +317,13 @@ export default function HomePage() {
         status: "completed",
         src: "/logo.png",
         ctaText: "View Materials",
-        ctaLink: "#workshop",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>February 28, 2024</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>2:00 PM - 5:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Auditorium Hall</span>
-              </div>
-              <div className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs w-fit">Workshop</div>
-            </div>
-            <p className="text-neutral-700">
-              Join us for an intensive workshop on Artificial Intelligence and Machine Learning conducted by Dr. Sarah
-              Chen, Senior AI Researcher at Google. This hands-on session covered the fundamentals of neural networks,
-              deep learning, and practical applications in industry.
-            </p>
-            <p className="text-neutral-700">
-              Students learned about the latest trends in AI, worked with popular frameworks like TensorFlow and
-              PyTorch, and understood how to implement ML algorithms in real-world scenarios.
-            </p>
-          </div>
-        ),
-      },
-      {
-        id: "3",
-        title: "TechnoVision 2024",
-        description: "Technical Symposium",
-        date: "April 5-7, 2024",
-        time: "9:00 AM - 6:00 PM",
-        venue: "Main Campus Grounds",
-        category: "Symposium",
-        status: "upcoming",
-        src: "/logo.png",
-        ctaText: "View Schedule",
-        ctaLink: "#schedule",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>April 5-7, 2024</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>9:00 AM - 6:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Main Campus Grounds</span>
-              </div>
-              <div className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs w-fit">Symposium</div>
-            </div>
-            <p className="text-neutral-700">
-              TechnoVision 2024 is the department's premier technical symposium featuring paper presentations, project
-              exhibitions, and technical competitions. Students from various universities will showcase their innovative
-              projects and research work in computer science and engineering.
-            </p>
-            <p className="text-neutral-700">
-              The event includes keynote speeches from industry leaders, panel discussions on emerging technologies,
-              startup pitch competitions, and cultural programs.
-            </p>
-          </div>
-        ),
-      },
-      {
-        id: "4",
-        title: "Campus Placement Drive",
-        description: "Career Development",
-        date: "January 20-25, 2024",
-        time: "10:00 AM - 4:00 PM",
-        venue: "Placement Cell Office",
-        category: "Career",
-        status: "completed",
-        src: "/logo.png",
-        ctaText: "View Results",
-        ctaLink: "#placement",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>January 20-25, 2024</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>10:00 AM - 4:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Placement Cell Office</span>
-              </div>
-              <div className="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs w-fit">Career</div>
-            </div>
-            <p className="text-neutral-700">
-              The CSE Department's Campus Placement Drive connected final-year students with leading technology
-              companies for internships and full-time positions. Top companies including Microsoft, Amazon, Google, and
-              local startups participated in our recruitment process.
-            </p>
-            <p className="text-neutral-700">
-              The drive included pre-placement talks, technical interviews, HR rounds, and on-the-spot offer letters.
-              Students received comprehensive preparation support including mock interviews and resume building
-              workshops.
-            </p>
-          </div>
-        ),
+        content:
+          "Join us for an intensive workshop on Artificial Intelligence and Machine Learning conducted by industry experts. This hands-on session covers the fundamentals of neural networks, deep learning, and practical applications in industry.",
       },
     ],
     "2025": [
       {
-        id: "5",
+        id: "3",
         title: "Research Symposium 2025",
         description: "Annual Research Conference",
         date: "March 10-12, 2025",
@@ -442,79 +333,12 @@ export default function HomePage() {
         status: "upcoming",
         src: "/logo.png",
         ctaText: "Submit Paper",
-        ctaLink: "#research",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>March 10-12, 2025</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>9:00 AM - 5:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Conference Hall</span>
-              </div>
-              <div className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs w-fit">Research</div>
-            </div>
-            <p className="text-neutral-700">
-              The Annual Research Symposium brings together faculty, students, and industry experts to present and
-              discuss cutting-edge research in computer science and engineering. This three-day event features keynote
-              presentations, paper sessions, and poster presentations.
-            </p>
-            <p className="text-neutral-700">
-              Participants can submit original research papers, attend workshops on research methodologies, and network
-              with leading researchers from academia and industry.
-            </p>
-          </div>
-        ),
-      },
-      {
-        id: "6",
-        title: "Industry Connect 2025",
-        description: "Industry Partnership Event",
-        date: "June 15, 2025",
-        time: "10:00 AM - 4:00 PM",
-        venue: "Innovation Hub",
-        category: "Industry",
-        status: "upcoming",
-        src: "/logo.png",
-        ctaText: "Register",
-        ctaLink: "#industry",
-        content: () => (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Calendar className="h-4 w-4 text-blue-600" />
-                <span>June 15, 2025</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <Clock className="h-4 w-4 text-blue-600" />
-                <span>10:00 AM - 4:00 PM</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-600">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span>Innovation Hub</span>
-              </div>
-              <div className="px-2 py-1 bg-teal-100 text-teal-800 rounded-full text-xs w-fit">Industry</div>
-            </div>
-            <p className="text-neutral-700">
-              Industry Connect 2025 is designed to strengthen partnerships between the department and leading technology
-              companies. The event features panel discussions, collaborative project presentations, and networking
-              sessions.
-            </p>
-            <p className="text-neutral-700">
-              Students and faculty will have opportunities to interact with industry professionals, explore internship
-              and job opportunities, and learn about current industry trends and challenges.
-            </p>
-          </div>
-        ),
+        content:
+          "The Annual Research Symposium brings together faculty, students, and industry experts to present and discuss cutting-edge research in computer science and engineering.",
       },
     ],
   }
+
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -620,6 +444,7 @@ export default function HomePage() {
       </Navbar>
 
       {/* Hero */}
+      
       <motion.div
         ref={heroRef}
         initial="hidden"
@@ -647,208 +472,160 @@ export default function HomePage() {
         </ContainerScroll>
       </motion.div>
 
-      {/* Event Calendar */}
-      <motion.div
+      {/* Events Section */}
+      <motion.section
         ref={eventsRef}
         initial="hidden"
         animate={eventsInView ? "visible" : "hidden"}
         variants={staggerContainer}
+        className="py-20 bg-gray-50"
       >
-        <motion.header variants={fadeInUp} className="bg-zinc-100 border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between max-w-7xl mx-auto">
-            <div className="flex items-center space-x-3">
-              <div>
-                <h1 className="text-lg font-semibold text-gray-800">Academic Event Calendar</h1>
-              </div>
-            </div>
-            <Button className="bg-blue-900 hover:bg-blue-950 text-white px-6 py-2 rounded-full">Read More</Button>
-          </div>
-        </motion.header>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Academic Event Calendar</h2>
+            <p className="text-xl text-gray-600">Stay updated with our latest events and activities</p>
+          </motion.div>
 
-        <motion.div
-          variants={fadeInUp}
-          className="flex justify-center text-center flex-col bg-gradient-to-br from-slate-50 to-blue-50 p-10"
-        >
-          <div className="max-w-6xl mx-auto w-full">
-            {/* Modal */}
-            <AnimatePresence>
-              {active && typeof active === "object" && (
+          {/* Event Modal */}
+          <AnimatePresence>
+            {activeEvent && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+                onClick={() => setActiveEvent(null)}
+              >
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/20 h-full w-full z-10"
-                />
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {active && typeof active === "object" ? (
-                <div className="fixed inset-0 grid place-items-center z-[100] p-4">
-                  <motion.button
-                    key={`button-${active.title}-${id}`}
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                    className="flex absolute top-4 right-4 lg:top-2 lg:right-2 items-center justify-center bg-white rounded-full h-8 w-8 shadow-lg z-10"
-                    onClick={() => setActive(null)}
-                  >
-                    <CloseIcon />
-                  </motion.button>
-                  <motion.div
-                    layoutId={`card-${active.title}-${id}`}
-                    ref={ref}
-                    className="w-full max-w-2xl h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl"
-                  >
-                    <motion.div layoutId={`image-${active.title}-${id}`}>
-                      <img
-                        width={200}
-                        height={200}
-                        src={active.src || "/placeholder.svg"}
-                        alt={active.title}
-                        className="w-full h-64 object-cover"
-                      />
-                    </motion.div>
-
-                    <div className="p-2">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex-1">
-                          <motion.h3
-                            layoutId={`title-${active.title}-${id}`}
-                            className="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-2"
-                          >
-                            {active.title}
-                          </motion.h3>
-                          <motion.p
-                            layoutId={`description-${active.description}-${id}`}
-                            className="text-neutral-600 dark:text-neutral-400 text-lg"
-                          >
-                            {active.description}
-                          </motion.p>
-                        </div>
-                        <motion.a
-                          layoutId={`button-${active.title}-${id}`}
-                          href={active.ctaLink}
-                          target="_blank"
-                          className="px-6 py-3 text-sm rounded-full font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors ml-4"
-                          rel="noreferrer"
-                        >
-                          {active.ctaText}
-                        </motion.a>
-                      </div>
-
-                      <div className="relative">
-                        <motion.div
-                          layout
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="text-neutral-700 dark:text-neutral-300 max-h-96 overflow-auto"
-                        >
-                          {typeof active.content === "function" ? active.content() : active.content}
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              ) : null}
-            </AnimatePresence>
-
-            {/* Yearly Sections */}
-            <div className="space-y-12">
-              {Object.entries(eventsByYear).map(([year, events], yearIndex) => (
-                <motion.div key={year} variants={fadeInLeft} className="text-left">
-                  <div className="flex items-center mb-6">
-                    <h2 className="text-3xl font-bold text-blue-900 mr-4">{year}</h2>
-                    <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                >
+                  <div className="relative">
+                    <Image
+                      src={activeEvent.src || "/placeholder.svg"}
+                      alt={activeEvent.title}
+                      width={600}
+                      height={300}
+                      className="w-full h-64 object-cover rounded-t-2xl"
+                    />
+                    <button
+                      onClick={() => setActiveEvent(null)}
+                      className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
 
-                  <motion.div variants={staggerContainer} className="grid gap-4">
-                    {events.map((event, eventIndex) => (
-                      <motion.div
-                        key={`card-${event.title}-${id}`}
-                        layoutId={`card-${event.title}-${id}`}
-                        variants={yearIndex % 2 === 0 ? fadeInLeft : fadeInRight}
-                        onClick={() => setActive(event)}
-                        className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer border border-slate-200 hover:border-blue-200"
-                        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{activeEvent.title}</h3>
+                    <p className="text-gray-600 mb-4">{activeEvent.description}</p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Calendar className="h-4 w-4 text-blue-600" />
+                        <span>{activeEvent.date}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Clock className="h-4 w-4 text-blue-600" />
+                        <span>{activeEvent.time}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <MapPin className="h-4 w-4 text-blue-600" />
+                        <span>{activeEvent.venue}</span>
+                      </div>
+                      <div
+                        className={`px-3 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(activeEvent.status)}`}
                       >
-                        <div className="p-6">
-                          <div className="flex flex-col lg:flex-row gap-6">
-                            <motion.div layoutId={`image-${event.title}-${id}`} className="flex-shrink-0">
-                              <img
-                                width={120}
-                                height={120}
-                                src={event.src || "/placeholder.svg"}
-                                alt={event.title}
-                                className="w-full lg:w-32 h-32 rounded-lg object-cover"
-                              />
-                            </motion.div>
+                        {activeEvent.status.charAt(0).toUpperCase() + activeEvent.status.slice(1)}
+                      </div>
+                    </div>
 
-                            <div className="flex-1 min-w-0">
-                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                                <div className="flex-1">
-                                  <motion.h3
-                                    layoutId={`title-${event.title}-${id}`}
-                                    className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2"
-                                  >
-                                    {event.title}
-                                  </motion.h3>
-                                  <motion.p
-                                    layoutId={`description-${event.description}-${id}`}
-                                    className="text-neutral-600 dark:text-neutral-400 mb-3"
-                                  >
-                                    {event.description}
-                                  </motion.p>
+                    <p className="text-gray-700 mb-6">{activeEvent.content}</p>
 
-                                  <div className="flex flex-wrap gap-4 text-sm text-neutral-600 mb-3">
-                                    <div className="flex items-center gap-1">
-                                      <Calendar className="h-4 w-4 text-blue-600" />
-                                      <span>{event.date}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <Clock className="h-4 w-4 text-blue-600" />
-                                      <span>{event.time}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1">
-                                      <MapPin className="h-4 w-4 text-blue-600" />
-                                      <span>{event.venue}</span>
-                                    </div>
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">{activeEvent.ctaText}</Button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Events by Year */}
+          <div className="space-y-12">
+            {Object.entries(eventsByYear).map(([year, events]) => (
+              <motion.div key={year} variants={fadeInUp}>
+                <div className="flex items-center mb-8">
+                  <h3 className="text-3xl font-bold text-blue-600 mr-4">{year}</h3>
+                  <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
+                </div>
+
+                <div className="grid gap-6">
+                  {events.map((event) => (
+                    <Card
+                      key={event.id}
+                      className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                      onClick={() => setActiveEvent(event)}
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex flex-col lg:flex-row gap-6">
+                          <Image
+                            src={event.src || "/placeholder.svg"}
+                            alt={event.title}
+                            width={150}
+                            height={100}
+                            className="w-full lg:w-32 h-32 rounded-lg object-cover flex-shrink-0"
+                          />
+
+                          <div className="flex-1">
+                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                              <div className="flex-1">
+                                <h4 className="text-xl font-semibold text-gray-900 mb-2">{event.title}</h4>
+                                <p className="text-gray-600 mb-3">{event.description}</p>
+
+                                <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
+                                  <div className="flex items-center gap-1">
+                                    <Calendar className="h-4 w-4 text-blue-600" />
+                                    <span>{event.date}</span>
                                   </div>
-
-                                  <div className="flex gap-2">
-                                    <span
-                                      className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}
-                                    >
-                                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
-                                    </span>
-                                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
-                                      {event.category}
-                                    </span>
+                                  <div className="flex items-center gap-1">
+                                    <Clock className="h-4 w-4 text-blue-600" />
+                                    <span>{event.time}</span>
+                                  </div>
+                                  <div className="flex items-center gap-1">
+                                    <MapPin className="h-4 w-4 text-blue-600" />
+                                    <span>{event.venue}</span>
                                   </div>
                                 </div>
 
-                                <motion.button
-                                  layoutId={`button-${event.title}-${id}`}
-                                  className="px-6 py-2 text-sm rounded-full font-semibold bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 transition-all duration-200 whitespace-nowrap"
-                                >
-                                  {event.ctaText}
-                                </motion.button>
+                                <div className="flex gap-2">
+                                  <span
+                                    className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}
+                                  >
+                                    {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                                  </span>
+                                  <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                                    {event.category}
+                                  </span>
+                                </div>
                               </div>
+
+                              <Button variant="outline" className="whitespace-nowrap bg-transparent">
+                                {event.ctaText}
+                              </Button>
                             </div>
                           </div>
                         </div>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
-      </motion.div>
-
+        </div>
+      </motion.section>
       {/* Notice Board */}
       <motion.div ref={noticeRef} initial="hidden" animate={noticeInView ? "visible" : "hidden"} variants={fadeInUp}>
         <NoticeBoard />
@@ -912,6 +689,97 @@ export default function HomePage() {
           </div>
         </motion.div>
       </motion.div>
+      <footer className="bg-black mx-auto  max-w-full px-0 pt-10">
+        {/* Columns Section */}
+        <div className="flex flex-col md:flex-row items-center gap-10 px-6">
+          {/* Logo */}
+          <div className="hidden lg:block flex-shrink-0 grayscale">
+            <Image
+              src="/logo.png"
+              alt="Adamas Logo"
+              width={200}
+              height={144}
+              className="h-36 object-contain"
+            />
+          </div>
+
+          {/* Navigation Columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Colleges</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  History & Tours
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Public Engagement
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Study With Us</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  UG Courses
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Grad Programs
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Online Learning
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Research</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Research Units
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Funding</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Impact Stories
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Contact</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Press Office
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Careers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Large Gradient Text */}
+        <div className="relative w-full overflow-hidden select-none">
+          <div className="overflow-hidden">
+            <h1 className="text-[26.5vw] mt-4 md:mt-6 xl:mt-0 xl:text-[20rem] font-bold leading-none tracking-tighter text-center bg-gradient-to-b from-gray-300 to-black bg-clip-text text-transparent overflow-hidden w-full">
+              Adamas
+            </h1>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="text-center text-sm text-gray-200 pb-4">© 2025 Adamas University. All rights reserved.</div>
+      </footer>
+      {isVisible && (
+      <button
+          onClick={scrollToTop}
+          className="fixed right-6 bottom-6 z-50 bg-blue-900 text-white hover:bg-gray-100 transition-all duration-300 ease-in-out rounded-full p-3 shadow-lg hover:shadow-xl transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+          aria-label="Scroll to top"
+        >
+          <ChevronUp className="w-6 h-6" />
+        </button>
+      )}
     </div>
   )
 }
