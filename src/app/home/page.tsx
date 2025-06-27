@@ -28,27 +28,60 @@ import { ChevronUp, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Component from "@/components/ui/university-section"
 import { FlipWords } from "@/components/ui/flip-words";
+import VisionMissionStory from "@/components/ui/vision-mission-story"
+import BannerSlider from "@/components/ui/banner-slider"
 
+
+const bannerSlides = [
+  {
+    id: 1,
+    title: "Innovation Starts Here",
+    subtitle: "Building the future with cutting-edge technology",
+    background: "bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900",
+    pattern: "opacity-20",
+  },
+  {
+    id: 2,
+    title: "Transform Your Vision",
+    subtitle: "Turning ideas into powerful digital solutions",
+    background: "bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900",
+    pattern: "opacity-15",
+  },
+  {
+    id: 3,
+    title: "Scale Beyond Limits",
+    subtitle: "Empowering businesses with next-gen technology",
+    background: "bg-gradient-to-br from-orange-900 via-red-900 to-pink-900",
+    pattern: "opacity-25",
+  },
+  {
+    id: 4,
+    title: "Create. Build. Launch.",
+    subtitle: "Your partner in digital transformation",
+    background: "bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900",
+    pattern: "opacity-20",
+  },
+]
 const slideData = [
   {
-    title: "Mystic Mountains",
-    button: "Explore Component",
-    src: "https://images.unsplash.com/photo-1494806812796-244fe51b774d?q=80&w=3534&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Vibrant Campus",
+    button: "Explore",
+    src: "/1.jpg",
   },
   {
-    title: "Urban Dreams",
-    button: "Explore Component",
-    src: "https://images.unsplash.com/photo-1518710843675-2540dd79065c?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Achievements",
+    button: "Explore",
+    src: "/2.jpg",
   },
   {
-    title: "Neon Nights",
-    button: "Explore Component",
-    src: "https://images.unsplash.com/photo-1590041794748-2d8eb73a571c?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "NAAC A",
+    button: "Explore",
+    src: "/3.jpg",
   },
   {
-    title: "Desert Whispers",
-    button: "Explore Component",
-    src: "https://images.unsplash.com/photo-1679420437432-80cfbf88986c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "Eco Friendly Environment",
+    button: "Explore",
+    src: "/4.jpg",
   },
 ]
 const testimonials = [
@@ -121,25 +154,25 @@ const sampleItems = [
     id: "1",
     title: "Beautiful Landscape",
     description: "A stunning view of mountains and valleys",
-    image: "/1.jpg",
+    image: "/banner1.png",
   },
   {
     id: "2",
     title: "City Skyline",
     description: "Modern architecture against the evening sky",
-    image: "/2.jpg",
+    image: "/banner2.png",
   },
   {
     id: "3",
     title: "Ocean Waves",
     description: "Peaceful waves crashing on the shore",
-    image: "/3.jpg",
+    image: "/banner1.png",
   },
   {
     id: "4",
     title: "Ocean Waves",
     description: "Peaceful waves crashing on the shore",
-    image: "/4.jpg",
+    image: "/7.jpg",
   },
   {
     id: "5",
@@ -187,17 +220,18 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
   const id = useId()
 
   const moreMenuItems = [
-    { name: "Faculty", link: "#faculty", icon: "👨‍🏫" },
-    { name: "Research", link: "#research", icon: "🔬" },
-    { name: "Alumni", link: "#alumni", icon: "🎓" },
-    { name: "Placements", link: "#placements", icon: "💼" },
-    { name: "Library", link: "#library", icon: "📚" },
-    { name: "Contact Us", link: "#contact", icon: "📞" },
+    { name: "Faculty", link: "https://www.aucse.in/people", icon: "👨‍🏫" },
+    { name: "Timetable", link: "https://www.aucse.in/timetable", icon: "🗓️" },
+    { name: "Research", link: "https://www.aucse.in/more/research", icon: "🔬" },
+    { name: "Alumni", link: "https://www.aucse.in/people/alumni", icon: "🎓" },
+    { name: "Placements", link: "https://www.aucse.in/more/placement", icon: "💼" },
+    { name: "Explore", link: "https://www.aucse.in/more", icon: "📕" },
   ]
 
   // Refs for scroll animations
   const heroRef = useRef(null)
   const eventsRef = useRef(null)
+  const storyRef = useRef(null)
   const noticeRef = useRef(null)
   const featuresRef = useRef(null)
   const galleryRef = useRef(null)
@@ -205,6 +239,7 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
 
   // InView hooks for scroll animations
   const heroInView = useInView(heroRef, { once: true, margin: "-100px" })
+  const storyInView = useInView(storyRef, { once: true, margin: "-100px" })
   const eventsInView = useInView(eventsRef, { once: true, margin: "-100px" })
   const noticeInView = useInView(noticeRef, { once: true, margin: "-100px" })
   const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
@@ -282,7 +317,7 @@ const fadeInUp: Variants = {
     },
     {
       name: "About",
-      link: "#about",
+      link: "https://www.aucse.in/About-Us",
     },
     {
       name: "Notice",
@@ -290,15 +325,15 @@ const fadeInUp: Variants = {
     },
     {
       name: "Programs",
-      link: "#contact",
+      link: "https://www.aucse.in/programs",
     },
     {
       name: "Calendar",
-      link: "#contact",
+      link: "https://www.aucse.in/calendar",
     },
     {
       name: "Infrastructure",
-      link: "#contact",
+      link: "https://www.aucse.in/infrastructure",
     },
   ]
 
@@ -366,10 +401,10 @@ const fadeInUp: Variants = {
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-white/50">
       <Navbar>
         {/* Desktop Navigation */}
-        <NavBody>
+        <NavBody className="bg-blue-100/50">
           <NavbarLogo />
           <div className="flex items-center space-x-1">
           <NavItems items={navItems} />
@@ -456,14 +491,15 @@ const fadeInUp: Variants = {
       </Navbar>
 
       {/* Hero */}
-      
+   
       <motion.div
         ref={heroRef}
         initial="hidden"
         animate={heroInView ? "visible" : "hidden"}
         variants={fadeInUp}
         className="flex flex-col overflow-hidden"
-      >
+      > 
+        {/* <BannerSlider /> */}
         <ContainerScroll
           titleComponent={
             <>
@@ -491,6 +527,17 @@ const fadeInUp: Variants = {
         <span className="text-xl font-semibold text-shadow-zinc-100 text-zinc-200/50">Adamas University</span>
       </div>
       </div>
+
+      {/* About */}
+      <motion.section
+        ref={storyRef}
+        initial="hidden"
+        animate={storyInView ? "visible" : "hidden"}
+        variants={staggerContainer}
+        className="py-20 bg-gray-50"
+      >
+      <VisionMissionStory />
+      </motion.section>
       {/* Events Section */}
 
       <motion.section
