@@ -15,7 +15,7 @@ import { Calendar, MapPin, Clock } from "lucide-react"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
-import { AnimatePresence, motion, useInView } from "framer-motion"
+import { AnimatePresence, motion, useInView, Variants, easeInOut } from "framer-motion"
 import { useOutsideClick } from "@/hooks/use-outside-click"
 import NoticeBoard from "@/components/ui/notice-board"
 import { Button } from "@/components/ui/button"
@@ -228,14 +228,20 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
   useOutsideClick(ref, () => setActive(null))
 
   // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+const fadeInUp: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: easeInOut, 
     },
-  }
+  },
+};
 
   const fadeInLeft = {
     hidden: { opacity: 0, x: -60 },
