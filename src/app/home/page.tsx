@@ -10,7 +10,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
-import { Calendar, MapPin, Clock } from "lucide-react"
+
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
@@ -23,45 +23,15 @@ import { IconClipboardCopy, IconFileBroken, IconSignature, IconTableColumn } fro
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
 import Image from "next/image"
 import Carousel from "@/components/ui/carousel"
-import { ChevronUp, X } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { ChevronUp } from "lucide-react"
 import Component from "@/components/ui/university-section"
 import { FlipWords } from "@/components/ui/flip-words";
 import VisionMissionStory from "@/components/ui/vision-mission-story"
+import { Timeline } from "@/components/ui/timeline"
 
 
 
  
-const bannerSlides = [
-  {
-    id: 1,
-    title: "Innovation Starts Here",
-    subtitle: "Building the future with cutting-edge technology",
-    background: "bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900",
-    pattern: "opacity-20",
-  },
-  {
-    id: 2,
-    title: "Transform Your Vision",
-    subtitle: "Turning ideas into powerful digital solutions",
-    background: "bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900",
-    pattern: "opacity-15",
-  },
-  {
-    id: 3,
-    title: "Scale Beyond Limits",
-    subtitle: "Empowering businesses with next-gen technology",
-    background: "bg-gradient-to-br from-orange-900 via-red-900 to-pink-900",
-    pattern: "opacity-25",
-  },
-  {
-    id: 4,
-    title: "Create. Build. Launch.",
-    subtitle: "Your partner in digital transformation",
-    background: "bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900",
-    pattern: "opacity-20",
-  },
-]
 const slideData = [
   {
     title: "Vibrant Campus",
@@ -184,7 +154,6 @@ const sampleItems = [
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
-  const [activeEvent, setActiveEvent] = useState<any>(null)
   const words = ["Excellence", "Prestige", "Innovation", "Creativity"];
   // Show button when page is scrolled down
   useEffect(() => {
@@ -280,24 +249,6 @@ const fadeInUp: Variants = {
     },
   },
 };
-
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -60 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  }
-
-  const fadeInRight = {
-    hidden: { opacity: 0, x: 60 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  }
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -507,7 +458,7 @@ const fadeInUp: Variants = {
                 Adamas University
                 <br />
                 <span className="text-3xl md:text-[4rem] font-bold mt-1 leading-none text-blue-950">
-                  Department Of Computer Science
+                  Dept. Of Computer Science & Engineering
                 </span>
               </h1>
             </>
@@ -521,11 +472,16 @@ const fadeInUp: Variants = {
       </motion.div>
 
       <div className="flex w-full h-auto p-5 justify-center text-center items-center bg-blue-950">
-        <div className="text-3xl bold mx-auto font-normal text-white/70 dark:text-neutral-400 ">
-        Department of <span className="p-2 bg-green-300 m-2 text-zinc-900 rounded-md shadow-sm shadow-green-950/50 font-semibold">Computer Science</span> 
-        <br /><FlipWords className="mt-4" words={words} /> <br />
-        <span className="text-xl font-semibold text-shadow-zinc-100 text-zinc-200/50">Adamas University</span>
-      </div>
+        <div className="mx-auto font-normal text-white/70 dark:text-neutral-400">
+          <div className="flex flex-col items-center">
+            <span className="text-xl sm:text-3xl font-normal mb-2">Department of</span>
+            <span className="p-2 px-3 bg-green-300 m-0 text-zinc-900 rounded-md shadow-sm shadow-green-950/50 font-semibold text-lg sm:text-3xl w-fit">Computer Science & Engineering</span>
+          </div>
+          <br />
+          <FlipWords className="mt-2 sm:mt-4 text-lg sm:text-2xl" words={words} />
+          <br />
+          <span className="text-base sm:text-xl font-semibold text-shadow-zinc-100 text-zinc-200/50">Adamas University</span>
+        </div>
       </div>
 
       {/* About */}
@@ -538,8 +494,7 @@ const fadeInUp: Variants = {
       >
       <VisionMissionStory />
       </motion.section>
-      {/* Events Section */}
-
+      {/* Events Section replaced with Timeline */}
       <motion.section
         ref={eventsRef}
         initial="hidden"
@@ -547,155 +502,29 @@ const fadeInUp: Variants = {
         variants={staggerContainer}
         className="py-20 bg-gray-50"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Academic Event Calendar</h2>
-            <p className="text-xl text-gray-600">Stay updated with our latest events and activities</p>
-          </motion.div>
 
-          {/* Event Modal */}
-          <AnimatePresence>
-            {activeEvent && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-                onClick={() => setActiveEvent(null)}
-              >
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.9, opacity: 0 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
-                >
-                  <div className="relative">
-                    <Image
-                      src={activeEvent.src || "/placeholder.svg"}
-                      alt={activeEvent.title}
-                      width={600}
-                      height={300}
-                      className="w-full h-64 object-cover rounded-t-2xl"
-                    />
-                    <button
-                      onClick={() => setActiveEvent(null)}
-                      className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
+        {/* Event Calender*/}
+        <Timeline
+          data={Object.entries(eventsByYear).flatMap(([year, events]) =>
+            events.map(event => ({
+              title: `${event.title} (${year})`,
+              content: (
+                <div className="mb-4">
+                  <div className="text-sm text-gray-600 mb-1 font-semibold">{event.date} | {event.time} | {event.venue}</div>
+                  <div className="mb-2 text-base text-gray-800 font-medium">{event.description}</div>
+                  <div className="mb-2 text-gray-700 text-sm">{event.content}</div>
+                  <div className="flex gap-2 mb-2">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>{event.status.charAt(0).toUpperCase() + event.status.slice(1)}</span>
+                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">{event.category}</span>
                   </div>
-
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{activeEvent.title}</h3>
-                    <p className="text-gray-600 mb-4">{activeEvent.description}</p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Calendar className="h-4 w-4 text-blue-600" />
-                        <span>{activeEvent.date}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock className="h-4 w-4 text-blue-600" />
-                        <span>{activeEvent.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <MapPin className="h-4 w-4 text-blue-600" />
-                        <span>{activeEvent.venue}</span>
-                      </div>
-                      <div
-                        className={`px-3 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(activeEvent.status)}`}
-                      >
-                        {activeEvent.status.charAt(0).toUpperCase() + activeEvent.status.slice(1)}
-                      </div>
-                    </div>
-
-                    <p className="text-gray-700 mb-6">{activeEvent.content}</p>
-
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">{activeEvent.ctaText}</Button>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Events by Year */}
-          <div className="space-y-12">
-            {Object.entries(eventsByYear).map(([year, events]) => (
-              <motion.div key={year} variants={fadeInUp}>
-                <div className="flex items-center mb-8">
-                  <h3 className="text-3xl font-bold text-blue-600 mr-4">{year}</h3>
-                  <div className="flex-1 h-px bg-gradient-to-r from-blue-200 to-transparent"></div>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1">{event.ctaText}</Button>
                 </div>
-
-                <div className="grid gap-6">
-                  {events.map((event) => (
-                    <Card
-                      key={event.id}
-                      className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                      onClick={() => setActiveEvent(event)}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex flex-col lg:flex-row gap-6">
-                          <Image
-                            src={event.src || "/placeholder.svg"}
-                            alt={event.title}
-                            width={150}
-                            height={100}
-                            className="w-full lg:w-32 h-32 rounded-lg object-cover flex-shrink-0"
-                          />
-
-                          <div className="flex-1">
-                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                              <div className="flex-1">
-                                <h4 className="text-xl font-semibold text-gray-900 mb-2">{event.title}</h4>
-                                <p className="text-gray-600 mb-3">{event.description}</p>
-
-                                <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
-                                  <div className="flex items-center gap-1">
-                                    <Calendar className="h-4 w-4 text-blue-600" />
-                                    <span>{event.date}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <Clock className="h-4 w-4 text-blue-600" />
-                                    <span>{event.time}</span>
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <MapPin className="h-4 w-4 text-blue-600" />
-                                    <span>{event.venue}</span>
-                                  </div>
-                                </div>
-
-                                <div className="flex gap-2">
-                                  <span
-                                    className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}
-                                  >
-                                    {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
-                                  </span>
-                                  <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
-                                    {event.category}
-                                  </span>
-                                </div>
-                              </div>
-
-                              <Button variant="outline" className="whitespace-nowrap bg-transparent">
-                                {event.ctaText}
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+              )
+            }))
+          )}
+        />
       </motion.section>
 
-      {/* Faculty Section */}
-        <Component />
       {/* Notice Board */}
       <motion.div ref={noticeRef} initial="hidden" animate={noticeInView ? "visible" : "hidden"} variants={fadeInUp}>
         <NoticeBoard />
@@ -734,31 +563,47 @@ const fadeInUp: Variants = {
         initial="hidden"
         animate={galleryInView ? "visible" : "hidden"}
         variants={staggerContainer}
+        className="bg-white"
       >
-        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
-          <h1 className="text-2xl font-semibold m-1">Gallery</h1>
+        <motion.header variants={fadeInUp} className="p-2 bg-white text-center mt-5">
+          
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mt-8 sm:mt-12 md:mt-20 tracking-tight text-black">Gallery</h1>
         </motion.header>
-        <motion.div variants={fadeInUp} className="relative overflow-hidden w-full h-full py-20">
+        <motion.div variants={fadeInUp} className="relative overflow-hidden w-full h-full py-20 bg-white">
           <Carousel slides={slideData} />
         </motion.div>
       </motion.div>
 
       {/* Testimonial */}
-      <motion.div
-        ref={testimonialsRef}
-        initial="hidden"
-        animate={testimonialsInView ? "visible" : "hidden"}
-        variants={staggerContainer}
-      >
-        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-zinc-100 text-center mt-5">
-          <h1 className="text-2xl font-semibold m-1">Testimonials</h1>
-        </motion.header>
-        <motion.div variants={fadeInUp}>
-          <div className="h-[40rem] flex flex-col antialiased bg-zinc-100 dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-            <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
-          </div>
-        </motion.div>
-      </motion.div>
+<motion.div
+  ref={testimonialsRef}
+  initial="hidden"
+  animate={testimonialsInView ? "visible" : "hidden"}
+  variants={staggerContainer}
+  className="my-6"
+>
+  <motion.header
+    variants={fadeInUp}
+    className="p-2 bg-transparent text-center mt-8 mb-2 border-none shadow-none"
+  >
+    <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mt-8 sm:mt-6 md:mt-20 tracking-tight text-blue-900">
+      Testimonials
+    </h1>
+  </motion.header>
+
+  <motion.div variants={fadeInUp}>
+    <div className="h-[28rem] w-full flex flex-col antialiased bg-transparent dark:bg-transparent items-center justify-center relative overflow-hidden mt-0 border-none shadow-none">
+      <InfiniteMovingCards
+        items={testimonials}
+        direction="right"
+        speed="medium"
+      />
+    </div>
+  </motion.div>
+</motion.div>
+
+      {/* Faculty Section */}
+        <Component />
       <footer className="bg-black mx-auto  max-w-full px-10 pt-10 ">
         {/* Columns Section */}
         <div className="flex flex-col md:flex-row items-center gap-10 px-6">
