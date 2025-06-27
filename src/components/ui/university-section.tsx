@@ -70,54 +70,45 @@ export default function Component() {
   const placementCompanies = [
     {
       name: "Google",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/google.png",
       sector: "Technology",
     },
     {
       name: "Microsoft",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/microsoft.png",
       sector: "Technology",
     },
     {
+      name: "TCS",
+      logo: "/tcs.png",
+      sector: "Consultancy",
+    },
+    {
       name: "Amazon",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/amazon.png",
       sector: "E-commerce",
     },
     {
       name: "Apple",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/apple.png",
       sector: "Technology",
     },
     {
       name: "Meta",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/meta.png",
       sector: "Social Media",
     },
     {
-      name: "Tesla",
-      logo: "/placeholder.svg?height=80&width=160",
-      sector: "Automotive",
-    },
-    {
       name: "Netflix",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/netflix.png",
       sector: "Entertainment",
     },
     {
-      name: "Spotify",
-      logo: "/placeholder.svg?height=80&width=160",
-      sector: "Music Tech",
-    },
-    {
       name: "Adobe",
-      logo: "/placeholder.svg?height=80&width=160",
+      logo: "/adobe.png",
       sector: "Creative Software",
     },
-    {
-      name: "Salesforce",
-      logo: "/placeholder.svg?height=80&width=160",
-      sector: "CRM",
-    },
+
   ]
 
   const stats = [
@@ -206,12 +197,12 @@ export default function Component() {
                   key={index}
                   className="flex-shrink-0 w-80 border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:rotate-1 group"
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 ">
                     <div className="flex items-start space-x-4">
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-spin-slow opacity-20"></div>
                         <Image
-                          src={faculty.image || "/placeholder.svg"}
+                          src={faculty.image || "/placeholder.png"}
                           alt={faculty.name}
                           width={80}
                           height={80}
@@ -270,7 +261,7 @@ export default function Component() {
               {[...placementCompanies, ...placementCompanies].map((company, index) => (
                 <Card
                   key={index}
-                  className="flex-shrink-0 w-64 h-48 border-0 shadow-lg bg-white/90 backdrop-blur-sm transition-all duration-500  group overflow-hidden"
+                  className="flex-shrink-0 w-42 h-50 m-2 border-0 shadow-lg bg-white/90 backdrop-blur-sm transition-all duration-500  group overflow-hidden"
                 >
                   <CardContent className="p-0 h-full relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0  duration-300"></div>
