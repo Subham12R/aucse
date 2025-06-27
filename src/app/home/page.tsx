@@ -174,7 +174,10 @@ export default function HomePage() {
       behavior: "smooth",
     })
   }
-  const [active, setActive] = useState<(typeof eventsByYear)[string][number] | boolean | null>(null)
+type EventYear = keyof typeof eventsByYear; // "2024" | "2025"
+type EventType = (typeof eventsByYear)[EventYear][number];
+
+const [active, setActive] = useState<EventType | boolean | null>(null);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
