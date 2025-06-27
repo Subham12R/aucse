@@ -11,7 +11,6 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
 import { Calendar, MapPin, Clock } from "lucide-react"
-import { Timeline } from "@/components/ui/timeline";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
@@ -29,9 +28,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import Component from "@/components/ui/university-section"
 import { FlipWords } from "@/components/ui/flip-words";
 import VisionMissionStory from "@/components/ui/vision-mission-story"
-import BannerSlider from "@/components/ui/banner-slider"
 
 
+
+ 
 const bannerSlides = [
   {
     id: 1,
@@ -759,7 +759,7 @@ const fadeInUp: Variants = {
           </div>
         </motion.div>
       </motion.div>
-      <footer className="bg-black mx-auto  max-w-full px-0 pt-10">
+      <footer className="bg-black mx-auto  max-w-full px-10 pt-10 ">
         {/* Columns Section */}
         <div className="flex flex-col md:flex-row items-center gap-10 px-6">
           {/* Logo */}
@@ -774,7 +774,7 @@ const fadeInUp: Variants = {
           </div>
 
           {/* Navigation Columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full  justify-center items-center text-center">
             <div>
               <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
               <ul className="space-y-1 text-gray-400 text-lg">
@@ -819,11 +819,58 @@ const fadeInUp: Variants = {
             <div>
               <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
               <ul className="space-y-1 text-gray-400 text-lg">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Contact</li>
                 <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Press Office
+                  Carreer Cell
                 </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Careers</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Placement</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  Office
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                
+                <div className="flex justify-center items-center gap-4 p-2 right-5 absolute flex-col ">
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">📞</li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
+                  <Image src="/instagram.png" 
+                      alt="" 
+                      width={20}
+                      height={20}
+                      />
+                      </a>
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
+                  <Image src="/facebook.png" 
+                      alt="" 
+                      width={20}
+                      height={20}
+                      />
+                      </a>
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
+                  <Image src="/youtube.png" 
+                      alt="" 
+                      width={20}
+                      height={20}
+                      />
+                      </a>
+                </li>
+                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
+                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
+                  <Image src="/linkedin.png" 
+                      alt="" 
+                      width={20}
+                      height={20}
+                      />
+                      </a>
+                </li>
+                </div>
               </ul>
             </div>
           </div>
