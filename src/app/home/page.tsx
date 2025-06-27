@@ -11,7 +11,7 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
 import { Calendar, MapPin, Clock } from "lucide-react"
-
+import { Timeline } from "@/components/ui/timeline";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Slider from "@/components/ui/slider"
 import { useEffect, useId, useRef, useState } from "react"
@@ -27,6 +27,7 @@ import Carousel from "@/components/ui/carousel"
 import { ChevronUp, X } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import Component from "@/components/ui/university-section"
+import { FlipWords } from "@/components/ui/flip-words";
 
 const slideData = [
   {
@@ -151,6 +152,7 @@ const sampleItems = [
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
   const [activeEvent, setActiveEvent] = useState<any>(null)
+  const words = ["Excellence", "Prestige", "Innovation", "Creativity"];
   // Show button when page is scrolled down
   useEffect(() => {
     const toggleVisibility = () => {
@@ -482,8 +484,15 @@ const fadeInUp: Variants = {
         </ContainerScroll>
       </motion.div>
 
-
+      <div className="flex w-full h-auto p-5 justify-center text-center items-center bg-blue-950">
+        <div className="text-3xl bold mx-auto font-normal text-white/70 dark:text-neutral-400 ">
+        Department of <span className="p-2 bg-green-300 m-2 text-zinc-900 rounded-md shadow-sm shadow-green-950/50 font-semibold">Computer Science</span> 
+        <br /><FlipWords className="mt-4" words={words} /> <br />
+        <span className="text-xl font-semibold text-shadow-zinc-100 text-zinc-200/50">Adamas University</span>
+      </div>
+      </div>
       {/* Events Section */}
+
       <motion.section
         ref={eventsRef}
         initial="hidden"
