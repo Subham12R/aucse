@@ -28,6 +28,10 @@ import Component from "@/components/ui/university-section"
 import { FlipWords } from "@/components/ui/flip-words";
 import VisionMissionStory from "@/components/ui/vision-mission-story"
 import { Timeline } from "@/components/ui/timeline"
+import TestimonialCarousel from "@/components/ui/TestimonialCarousel"
+
+
+{/* Footer Logic*/}
 
 
 
@@ -575,174 +579,93 @@ const fadeInUp: Variants = {
       </motion.div>
 
       {/* Testimonial */}
-<motion.div
-  ref={testimonialsRef}
-  initial="hidden"
-  animate={testimonialsInView ? "visible" : "hidden"}
-  variants={staggerContainer}
-  className="my-6"
->
-  <motion.header
-    variants={fadeInUp}
-    className="p-2 bg-transparent text-center mt-8 mb-2 border-none shadow-none"
-  >
-    <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mt-8 sm:mt-6 md:mt-20 tracking-tight text-blue-900">
-      Testimonials
-    </h1>
-  </motion.header>
-
-  <motion.div variants={fadeInUp}>
-    <div className="h-[28rem] w-full flex flex-col antialiased bg-transparent dark:bg-transparent items-center justify-center relative overflow-hidden mt-0 border-none shadow-none">
-      <InfiniteMovingCards
-        items={testimonials}
-        direction="right"
-        speed="normal"
-      />
-    </div>
-  </motion.div>
-</motion.div>
+      <TestimonialCarousel />
 
       {/* Faculty Section */}
         <Component />
-      <footer className="bg-black mx-auto  max-w-full px-10 pt-10 ">
-        {/* Columns Section */}
-        <div className="flex flex-col md:flex-row items-center gap-10 px-6">
-          {/* Logo */}
-          <div className="hidden lg:block flex-shrink-0 grayscale">
-            <Image
-              src="/logo.png"
-              alt="Adamas Logo"
-              width={200}
-              height={144}
-              className="h-36 object-contain"
-            />
-          </div> 
-
-          {/* Navigation Columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full  justify-center items-center text-center">
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
-              <ul className="space-y-1 text-gray-400 text-lg">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Colleges</li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  History & Tours
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Public Engagement
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-[22px]">Study With Us</h3>
-              <ul className="space-y-1 text-gray-400 text-lg">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  UG Courses
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Grad Programs
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Online Learning
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-[22px]">Research</h3>
-              <ul className="space-y-1 text-gray-400 text-lg">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Research Units
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Funding</li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Impact Stories
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
-              <ul className="space-y-1 text-gray-400 text-lg">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Carreer Cell
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">Placement</li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  Office
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <ul className="space-y-1 text-gray-400 text-lg">
-                
-                <div className="flex justify-center items-center gap-4 p-2 right-5 absolute flex-col ">
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">📞</li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
-                  <Image src="/instagram.png" 
-                      alt="" 
-                      width={20}
-                      height={20}
-                      />
-                      </a>
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
-                  <Image src="/facebook.png" 
-                      alt="" 
-                      width={20}
-                      height={20}
-                      />
-                      </a>
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
-                  <Image src="/youtube.png" 
-                      alt="" 
-                      width={20}
-                      height={20}
-                      />
-                      </a>
-                </li>
-                <li className="hover:text-white cursor-pointer transition-colors duration-300 ease-in-out">
-                  <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Subscribe us on Youtube">
-                  <Image src="/linkedin.png" 
-                      alt="" 
-                      width={20}
-                      height={20}
-                      />
-                      </a>
-                </li>
-                </div>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Large Gradient Text */}
-        <div className="relative w-full overflow-hidden select-none">
-          <div className="overflow-hidden">
-            <h1 className="text-[26.5vw] mt-4 md:mt-6 xl:mt-0 xl:text-[20rem] font-bold leading-none tracking-tighter text-center bg-gradient-to-b from-gray-300 to-black bg-clip-text text-transparent overflow-hidden w-full">
-              Adamas
-            </h1>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="text-center text-sm text-gray-200 pb-4">© 2025 Adamas University. All rights reserved.</div>
-      </footer>
-      {isVisible && (
-      <button
-          onClick={scrollToTop}
-          className="fixed right-6 bottom-6 z-50 bg-blue-900 text-white hover:bg-gray-100 transition-all duration-300 ease-in-out rounded-full p-3 shadow-lg hover:shadow-xl transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
-          aria-label="Scroll to top"
-        >
-          <ChevronUp className="w-6 h-6" />
-        </button>
-      )}
+      <footer className="relative bg-black mx-auto max-w-full px-10 pt-10">
+  {/* Columns Section */}
+  <div className="flex flex-col md:flex-row items-center gap-10 px-6">
+    {/* Logo */}
+    <div className="hidden lg:block flex-shrink-0 grayscale">
+      <Image
+        src="/logo.png"
+        alt="Adamas Logo"
+        width={200}
+        height={144}
+        className="h-36 object-contain"
+      />
     </div>
+
+    {/* Navigation Columns */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full justify-center items-center text-center">
+      <div>
+        <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
+        <ul className="space-y-1 text-gray-400 text-lg">
+          <li className="hover:text-white cursor-pointer">Colleges</li>
+          <li className="hover:text-white cursor-pointer">History & Tours</li>
+          <li className="hover:text-white cursor-pointer">Public Engagement</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-white mb-4 text-[22px]">Study With Us</h3>
+        <ul className="space-y-1 text-gray-400 text-lg">
+          <li className="hover:text-white cursor-pointer">UG Courses</li>
+          <li className="hover:text-white cursor-pointer">Grad Programs</li>
+          <li className="hover:text-white cursor-pointer">Online Learning</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-white mb-4 text-[22px]">Research</h3>
+        <ul className="space-y-1 text-gray-400 text-lg">
+          <li className="hover:text-white cursor-pointer">Research Units</li>
+          <li className="hover:text-white cursor-pointer">Funding</li>
+          <li className="hover:text-white cursor-pointer">Impact Stories</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
+        <ul className="space-y-1 text-gray-400 text-lg">
+          <li className="hover:text-white cursor-pointer">Career Cell</li>
+          <li className="hover:text-white cursor-pointer">Placement</li>
+          <li className="hover:text-white cursor-pointer">Office</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {/* Copyright */}
+  <div className="text-center text-sm text-gray-200 pb-4 pt-6">
+    © 2025 Adamas University. All rights reserved.
+  </div>
+
+  {/* Floating Social Icons */}
+  <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-50">
+    <div className="flex flex-col items-center gap-3">
+      <a href="tel:1234567890" aria-label="Call us">
+        <span className="text-pink-400 text-2xl">📞</span>
+      </a>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
+      </a>
+      <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
+      </a>
+      <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
+      </a>
+      <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
+      </a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    
   )
 }
 
