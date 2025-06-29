@@ -596,7 +596,7 @@ const fadeInUp: Variants = {
       <InfiniteMovingCards
         items={testimonials}
         direction="right"
-        speed="medium"
+        speed="normal"
       />
     </div>
   </motion.div>
