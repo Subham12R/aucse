@@ -163,26 +163,26 @@ const TestimonialCarousel: React.FC = () => {
         slides: { perView: 3, spacing: 24 },
       },
     },
-    animation: {
-      duration: 6000,
-      easing: easingEaseOut,
-    },
+    // animation: {
+    //   duration: 6000,
+    //   easing: easingEaseOut,
+    // },
     
 
-    dragStarted() {
-      stopAutoSlide();
-    },
-    dragEnded() {
-      startAutoSlide();
-    },
-    mouseEntered() {
-      mouseOver.current = true;
-      stopAutoSlide();
-    },
-    mouseLeft() {
-      mouseOver.current = false;
-      startAutoSlide();
-    },
+    // dragStarted() {
+    //   stopAutoSlide();
+    // },
+    // dragEnded() {
+    //   startAutoSlide();
+    // },
+    // mouseEntered() {
+    //   mouseOver.current = true;
+    //   stopAutoSlide();
+    // },
+    // mouseLeft() {
+    //   mouseOver.current = false;
+    //   startAutoSlide();
+    // },
 
   });
   
