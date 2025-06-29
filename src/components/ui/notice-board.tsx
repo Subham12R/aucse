@@ -27,7 +27,7 @@ const announcements = [
     id: 1,
     author: {
       name: "Md Tohid",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/logo.png",
       initials: "MT",
     },
     date: "1 Jan 2024",
@@ -49,7 +49,7 @@ const announcements = [
     id: 2,
     author: {
       name: "Esther Howard",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/logo.png",
       initials: "EH",
     },
     date: "2 hours",
@@ -65,7 +65,7 @@ const announcements = [
     id: 3,
     author: {
       name: "Dianne Russell",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/logo.png",
       initials: "DR",
     },
     date: "3 hours",
@@ -87,7 +87,7 @@ const announcements = [
     id: 4,
     author: {
       name: "Dianne Russell",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/logo.png",
       initials: "DR",
     },
     date: "3 hours",
@@ -174,7 +174,7 @@ export default function NoticeBoard() {
                   <div className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={announcement.author.avatar || "/placeholder.svg"}
+                        src={announcement.author.avatar || "/logo.png"}
                         alt={announcement.author.name}
                       />
                       <AvatarFallback className="bg-gray-200 text-gray-700 text-xs">

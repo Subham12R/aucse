@@ -70,7 +70,7 @@ export default function Slider({
               {item.image ? (
                 <div className="relative w-full h-full">
                   <Image
-                    src={item.image || "/placeholder.svg"}
+                    src={item.image || "/logo.png"}
                     alt={item.title || `Slide ${index + 1}`}
                     fill
                     className="object-cover"

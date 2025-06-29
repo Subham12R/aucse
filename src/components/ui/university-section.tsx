@@ -21,7 +21,7 @@ export default function Component() {
       qualification: "PhD in AI/ML",
       experience: "15 years",
       specialization: "Machine Learning",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/logo.png",
       rating: 4.9,
       publications: 45,
     },
@@ -31,7 +31,7 @@ export default function Component() {
       qualification: "PhD in Robotics",
       experience: "20 years",
       specialization: "Robotics & Automation",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/logo.png",
       rating: 4.8,
       publications: 62,
     },
@@ -41,7 +41,7 @@ export default function Component() {
       qualification: "PhD in Finance",
       experience: "12 years",
       specialization: "Corporate Finance",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/logo.png",
       rating: 4.9,
       publications: 38,
     },
@@ -51,7 +51,7 @@ export default function Component() {
       qualification: "PhD in Statistics",
       experience: "18 years",
       specialization: "Big Data Analytics",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/logo.png",
       rating: 4.7,
       publications: 51,
     },
@@ -61,7 +61,7 @@ export default function Component() {
       qualification: "PhD in Security",
       experience: "14 years",
       specialization: "Network Security",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/logo.png",
       rating: 4.8,
       publications: 42,
     },
@@ -166,7 +166,7 @@ export default function Component() {
             Top Placement Partners
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Learn from industry experts and get placed in world's leading companies. Our faculty brings decades of
+            Learn from industry experts and get placed in world&apos;s leading companies. Our faculty brings decades of
             experience while our placement record speaks for itself.
           </p>
         </div>
@@ -202,7 +202,7 @@ export default function Component() {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-spin-slow opacity-20"></div>
                         <Image
-                          src={faculty.image || "/placeholder.png"}
+                          src={faculty.image || "/logo.png"}
                           alt={faculty.name}
                           width={80}
                           height={80}
@@ -268,7 +268,7 @@ export default function Component() {
                     <div className="h-full flex flex-col items-center justify-center p-6 relative z-10">
                       <div className="bg-white rounded-xl p-6 mb-4 duration-300 w-full h-24 flex items-center justify-center">
                         <Image
-                          src={company.logo || "/placeholder.svg"}
+                          src={company.logo || "/logo.png"}
                           alt={`${company.name} logo`}
                           width={160}
                           height={80}

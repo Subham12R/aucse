@@ -616,7 +616,7 @@ const fadeInUp: Variants = {
               height={144}
               className="h-36 object-contain"
             />
-          </div>
+          </div> 
 
           {/* Navigation Columns */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full  justify-center items-center text-center">
