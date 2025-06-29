@@ -583,11 +583,11 @@ const fadeInUp: Variants = {
 
       {/* Faculty Section */}
         <Component />
-      <footer className="relative bg-black mx-auto max-w-full px-10 pt-10">
+      <footer className="relative bg-blue-900 mx-auto max-w-full px-10 pt-10">
   {/* Columns Section */}
   <div className="flex flex-col md:flex-row items-center gap-10 px-6">
     {/* Logo */}
-    <div className="hidden lg:block flex-shrink-0 grayscale">
+    <div className="hidden lg:block flex-shrink-0 ">
       <Image
         src="/logo.png"
         alt="Adamas Logo"
