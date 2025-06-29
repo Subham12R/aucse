@@ -167,6 +167,8 @@ const TestimonialCarousel: React.FC = () => {
       duration: 6000,
       easing: easingEaseOut,
     },
+    
+
     dragStarted() {
       stopAutoSlide();
     },
@@ -181,7 +183,9 @@ const TestimonialCarousel: React.FC = () => {
       mouseOver.current = false;
       startAutoSlide();
     },
+
   });
+  
 
   const startAutoSlide = () => {
     stopAutoSlide();
