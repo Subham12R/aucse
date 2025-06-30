@@ -21,7 +21,7 @@ const universityNews = [
 ]
 
 export default function NewsTicker() {
-  const [isPaused, setIsPaused] = useState(false)
+
 
   // Create multiple rows of news items for continuous scrolling
   const createNewsRow = (startIndex: number, direction: "left" | "right") => {
@@ -52,12 +52,11 @@ export default function NewsTicker() {
   return (
     <div
       className="w-full bg-gray-900 py-12 overflow-hidden relative"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+
     >
       {/* First row - scrolling left */}
       <div className="relative mb-6">
-        <div className={`flex ${isPaused ? "pause-animation" : "animate-scroll-left"}`}>
+        <div className={`flex ${ "animate-scroll-left"}`}>
           {createNewsRow(0, "left").map((item) => (
             <div key={item.id} className={getItemStyle(item)}>
               {item.text}
@@ -74,7 +73,7 @@ export default function NewsTicker() {
 
       {/* Second row - scrolling right */}
       <div className="relative mb-6">
-        <div className={`flex ${isPaused ? "pause-animation" : "animate-scroll-right"}`}>
+        <div className={`flex ${"animate-scroll-right"}`}>
           {createNewsRow(5, "right").map((item) => (
             <div key={item.id} className={getItemStyle(item)}>
               {item.text}
@@ -91,7 +90,7 @@ export default function NewsTicker() {
 
       {/* Third row - scrolling left slower */}
       <div className="relative">
-        <div className={`flex ${isPaused ? "pause-animation" : "animate-scroll-left-slow"}`}>
+        <div className={`flex ${ "animate-scroll-left-slow"}`}>
           {createNewsRow(10, "left").map((item) => (
             <div key={item.id} className={getItemStyle(item)}>
               {item.text}
