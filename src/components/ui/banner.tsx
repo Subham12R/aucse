@@ -61,7 +61,7 @@ export default function BannerSlider() {
   }
 
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden bg-gray-100">
+    <div className="relative w-screen lg:w-full h-[50vh] lg:h-[80vh] overflow-hidden bg-gray-100">
       {/* Main slider container */}
       <div className="relative w-full h-full">
         {/* Slides */}
