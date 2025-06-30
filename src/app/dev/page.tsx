@@ -282,7 +282,7 @@ export default function TeamPortfolio() {
           <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="flex items-center justify-between">
               <div className="text-start">
-                <h1 className="text-4xl text-stone-800 tracking-wide font-bold bg-gradient-to-r from-stone-800 to-stone-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl text-stone-800 tracking-wide font-bold bg-gradient-to-r from-stone-800 to-stone-600 bg-clip-text ">
                   Meet Our Developers.
                 </h1>
                 <p className="text-stone-600 font-medium mt-2 text-lg">
