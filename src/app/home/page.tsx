@@ -542,9 +542,9 @@ const fadeInUp: Variants = {
         variants={staggerContainer}
         className="text-center bg-white"
       >
-        <motion.header variants={fadeInUp} className="border-y-1 border-gray-300 p-2 bg-white text-center mb-4">
-          <h1 className="text-2xl font-semibold m-2">Featured Section</h1>
-        </motion.header>
+        <motion.header variants={fadeInUp} className="p-2 bg-white text-center mt-4 mb-4">
+  <h1 className="text-2xl font-semibold m-2">Program Offered By Us</h1>
+</motion.header>
         <motion.div variants={fadeInUp}>
           <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6">
             {items.map((item, i) => (
