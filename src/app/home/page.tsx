@@ -10,9 +10,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
-
-import { ContainerScroll } from "@/components/ui/container-scroll-animation"
-import Slider from "@/components/ui/slider"
+import BannerSlider from "@/components/ui/banner"
 import { useEffect, useId, useRef, useState } from "react"
 import { AnimatePresence, motion, useInView, Variants, easeInOut } from "framer-motion"
 import { useOutsideClick } from "@/hooks/use-outside-click"
@@ -20,16 +18,14 @@ import NoticeBoard from "@/components/ui/notice-board"
 import { Button } from "@/components/ui/button"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { IconClipboardCopy, IconFileBroken, IconSignature, IconTableColumn } from "@tabler/icons-react"
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
 import Image from "next/image"
 import Carousel from "@/components/ui/carousel"
-import { ChevronUp } from "lucide-react"
 import Component from "@/components/ui/university-section"
-import { FlipWords } from "@/components/ui/flip-words";
 import VisionMissionStory from "@/components/ui/vision-mission-story"
 import { Timeline } from "@/components/ui/timeline"
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel"
-
+import Scroll from "@/components/ui/scroll"
+import NewsTicker from "@/components/ui/news-ticker"
 
 {/* Footer Logic*/}
 
@@ -159,30 +155,7 @@ const sampleItems = [
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
   const words = ["Excellence", "Prestige", "Innovation", "Creativity"];
-  // Show button when page is scrolled down
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
 
-    window.addEventListener("scroll", toggleVisibility)
-
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility)
-    }
-  }, [])
-
-  // Scroll to top smoothly
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
 type EventYear = keyof typeof eventsByYear; // "2024" | "2025"
 type EventType = (typeof eventsByYear)[EventYear][number];
 
@@ -190,7 +163,6 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
-  const id = useId()
 
   const moreMenuItems = [
     { name: "Faculty", link: "https://www.aucse.in/people", icon: "👨‍🏫" },
@@ -356,10 +328,11 @@ const fadeInUp: Variants = {
   }
 
   return (
-    <div className="relative w-full bg-white/50">
+    <div className="relative w-full ">
+
       <Navbar>
         {/* Desktop Navigation */}
-        <NavBody className="bg-blue-100/50">
+        <NavBody>
           <NavbarLogo />
           <div className="flex items-center space-x-1">
           <NavItems items={navItems} />
@@ -446,48 +419,13 @@ const fadeInUp: Variants = {
       </Navbar>
 
       {/* Hero */}
-   
-      <motion.div
-        ref={heroRef}
-        initial="hidden"
-        animate={heroInView ? "visible" : "hidden"}
-        variants={fadeInUp}
-        className="flex flex-col overflow-hidden"
-      > 
-        {/* <BannerSlider /> */}
-        <ContainerScroll
-          titleComponent={
-            <>
-              <h1 className="text-5xl font-bold text-shadow-blue-950 dark:text-blue-950">
-                Adamas University
-                <br />
-                <span className="text-3xl md:text-[4rem] font-bold mt-1 leading-none text-blue-950">
-                  Dept. Of Computer Science & Engineering
-                </span>
-              </h1>
-            </>
-          }
-        >
-          {/* Auto-playing slider */}
-          <div className="flex justify-center w-full h-full">
-            <Slider items={sampleItems} autoPlay={true} autoPlayInterval={4000} />
-          </div>
-        </ContainerScroll>
-      </motion.div>
-
-      <div className="flex w-full h-auto p-5 justify-center text-center items-center bg-blue-950">
-        <div className="mx-auto font-normal text-white/70 dark:text-neutral-400">
-          <div className="flex flex-col items-center">
-            <span className="text-xl sm:text-3xl font-normal mb-2">Department of</span>
-            <span className="p-2 px-3 bg-green-300 m-0 text-zinc-900 rounded-md shadow-sm shadow-green-950/50 font-semibold text-lg sm:text-3xl w-fit">Computer Science & Engineering</span>
-          </div>
-          <br />
-          <FlipWords className="mt-2 sm:mt-4 text-lg sm:text-2xl" words={words} />
-          <br />
-          <span className="text-base sm:text-xl font-semibold text-shadow-zinc-100 text-zinc-200/50">Adamas University</span>
-        </div>
+    <div className="h-auto mt-0 top-0 relative flex justify-center items-center">
+      <BannerSlider />
+      
       </div>
+  
 
+          <NewsTicker />
       {/* About */}
       <motion.section
         ref={storyRef}
@@ -596,7 +534,7 @@ const fadeInUp: Variants = {
         className="h-36 object-contain"
       />
     </div>
-
+    <Scroll />
     {/* Navigation Columns */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full justify-center items-center text-center">
       <div>
@@ -664,7 +602,7 @@ const fadeInUp: Variants = {
   </div>
 </footer>
 
-    </div>
+</div>
     
   )
 }
