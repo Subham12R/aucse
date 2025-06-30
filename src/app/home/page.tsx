@@ -27,6 +27,7 @@ import TestimonialCarousel from "@/components/ui/TestimonialCarousel"
 import Scroll from "@/components/ui/scroll"
 import NewsTicker from "@/components/ui/news-ticker"
 
+
 {/* Footer Logic*/}
 
 
@@ -329,7 +330,7 @@ const fadeInUp: Variants = {
 
   return (
     <div className="relative w-full ">
-
+      
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
@@ -421,6 +422,7 @@ const fadeInUp: Variants = {
       {/* Hero */}
     <div className="h-auto mt-0 top-0 relative flex justify-center items-center">
       <BannerSlider />
+
       
       </div>
   
