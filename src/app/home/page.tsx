@@ -87,7 +87,7 @@ const testimonials = [
   },
 ]
 const Skeleton = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black"></div>
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 "></div>
 )
 const items = [
   {
@@ -172,6 +172,7 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
     { name: "Alumni", link: "https://www.aucse.in/people/alumni", icon: "🎓" },
     { name: "Placements", link: "https://www.aucse.in/more/placement", icon: "💼" },
     { name: "Explore", link: "https://www.aucse.in/more", icon: "📕" },
+    { name: "Our Team", link: "./dev", icon: "👥" },
   ]
 
   // Refs for scroll animations
@@ -184,13 +185,13 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
   const testimonialsRef = useRef(null)
 
   // InView hooks for scroll animations
-  const heroInView = useInView(heroRef, { once: true, margin: "-100px" })
+
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" })
   const eventsInView = useInView(eventsRef, { once: true, margin: "-100px" })
   const noticeInView = useInView(noticeRef, { once: true, margin: "-100px" })
   const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
   const galleryInView = useInView(galleryRef, { once: true, margin: "-100px" })
-  const testimonialsInView = useInView(testimonialsRef, { once: true, margin: "-100px" })
+
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
