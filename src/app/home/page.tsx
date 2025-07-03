@@ -528,8 +528,8 @@ const fadeInUp: Variants = {
       <footer className="relative bg-blue-900 mx-auto max-w-full px-10 pt-10">
   {/* Columns Section */}
   <div className="flex flex-col md:flex-row items-center gap-10 px-6">
-    {/* Logo */}
-    <div className="hidden lg:block flex-shrink-0 ">
+    {/* Logo and Socials for Desktop/Tablet */}
+    <div className="hidden lg:flex flex-col items-center flex-shrink-0">
       <Image
         src="/logo.png"
         alt="Adamas Logo"
@@ -537,8 +537,25 @@ const fadeInUp: Variants = {
         height={144}
         className="h-36 object-contain"
       />
+      {/* Social Icons under logo for md+ */}
+      <div className="hidden md:flex flex-row items-center justify-center gap-6 mt-4">
+        <a href="tel:1234567890" aria-label="Call us">
+          <span className="text-pink-400 text-2xl">📞</span>
+        </a>
+        <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
+        </a>
+        <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
+        </a>
+        <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
+        </a>
+        <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
+        </a>
+      </div>
     </div>
-    <Scroll />
     {/* Navigation Columns */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full justify-center items-center text-center">
       <div>
@@ -584,8 +601,8 @@ const fadeInUp: Variants = {
     © 2025 Adamas University. All rights reserved.
   </div>
 
-  {/* Floating Social Icons */}
-  <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-50">
+  {/* Floating Social Icons for mobile only */}
+  <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-50 md:hidden">
     <div className="flex flex-col items-center gap-3">
       <a href="tel:1234567890" aria-label="Call us">
         <span className="text-pink-400 text-2xl">📞</span>

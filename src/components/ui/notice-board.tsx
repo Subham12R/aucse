@@ -139,7 +139,7 @@ export default function NoticeBoard() {
       </header>
 
       {/* Search Bar */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      {/*<div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="max-w-7xl mx-auto">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -153,7 +153,7 @@ export default function NoticeBoard() {
             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">⌘F</span>
           </div>
         </div>
-      </div>
+      </div>*/}
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-8">
