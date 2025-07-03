@@ -10,6 +10,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
+
 import BannerSlider from "@/components/ui/banner"
 import { useEffect, useId, useRef, useState } from "react"
 import { AnimatePresence, motion, useInView, Variants, easeInOut } from "framer-motion"
@@ -428,7 +429,7 @@ const fadeInUp: Variants = {
       </div>
   
 
-          <NewsTicker />
+   
       {/* About */}
       <motion.section
         ref={storyRef}
