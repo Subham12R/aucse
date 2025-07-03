@@ -182,7 +182,7 @@ const teamData: TeamMember[] = [
   },
   {
     id: "8",
-    name: "Pratyasha Banik",
+    name: "Pratyasha Basak",
     role: "UI/UX Designer",
     designation: "Design Lead",
     year: "2025",
@@ -345,7 +345,7 @@ export default function TeamPortfolio() {
               ))}
             </div>
           </div>
-
+          
           {/* Enhanced Team Groups */}
           {groups.map(({ label, key, icon: Icon, gradient }) => {
             const members = filteredMembers.filter((m) => m.group === key)
