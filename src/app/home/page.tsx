@@ -40,6 +40,7 @@ import {
   ChevronRight,
   ArrowRight, 
   Bell,
+  ArrowUp,
 } from "lucide-react"
 import NoticeBoard from "@/components/ui/notice-board"
 
@@ -174,10 +175,12 @@ const sampleItems = [
 export default function HomePage() {
   <Scroll />
   const [scrolled, setScrolled] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false) // <-- Add state
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+      setShowBackToTop(window.scrollY > 200) // Show button after 200px scroll
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -807,6 +810,17 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
     </div>
   )
 }
