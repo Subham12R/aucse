@@ -1,4 +1,5 @@
 "use client"
+
 import {
   Navbar,
   NavBody,
@@ -10,12 +11,11 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar"
-
 import BannerSlider from "@/components/ui/banner"
-import { useEffect, useId, useRef, useState } from "react"
-import { AnimatePresence, motion, useInView, Variants, easeInOut } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, motion, useInView, type Variants, easeInOut } from "framer-motion"
 import { useOutsideClick } from "@/hooks/use-outside-click"
-import NoticeBoard from "@/components/ui/notice-board"
+import Scroll from "@/components/ui/scroll"
 import { Button } from "@/components/ui/button"
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid"
 import { IconClipboardCopy, IconFileBroken, IconSignature, IconTableColumn } from "@tabler/icons-react"
@@ -25,15 +25,29 @@ import Component from "@/components/ui/university-section"
 import VisionMissionStory from "@/components/ui/vision-mission-story"
 import { Timeline } from "@/components/ui/timeline"
 import TestimonialCarousel from "@/components/ui/TestimonialCarousel"
-import Scroll from "@/components/ui/scroll"
-import NewsTicker from "@/components/ui/news-ticker"
+import {
+  GraduationCap,
+  Calendar,
+  Microscope,
+  Users,
+  Briefcase,
+  MapPin,
+  BookOpen,
+  HeadphonesIcon,
+  Library,
+  Trophy,
+  Globe,
+  ChevronRight,
+  ArrowRight, 
+  Bell,
+} from "lucide-react"
+import NoticeBoard from "@/components/ui/notice-board"
 
 
-{/* Footer Logic*/}
+{
+  /* Footer Logic*/
+}
 
-
-
- 
 const slideData = [
   {
     title: "Vibrant Campus",
@@ -56,6 +70,7 @@ const slideData = [
     src: "/4.jpg",
   },
 ]
+
 const testimonials = [
   {
     quote:
@@ -87,9 +102,11 @@ const testimonials = [
     title: "Moby-Dick",
   },
 ]
+
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 "></div>
 )
+
 const items = [
   {
     title: "Best In Field of AI/ML",
@@ -155,44 +172,99 @@ const sampleItems = [
 ]
 
 export default function HomePage() {
-  const [isVisible, setIsVisible] = useState(false)
-  const words = ["Excellence", "Prestige", "Innovation", "Creativity"];
+  <Scroll />
+  const [scrolled, setScrolled] = useState(false)
 
-type EventYear = keyof typeof eventsByYear; // "2024" | "2025"
-type EventType = (typeof eventsByYear)[EventYear][number];
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+  const words = ["Excellence", "Prestige", "Innovation", "Creativity"]
 
-const [active, setActive] = useState<EventType | boolean | null>(null);
+  type EventYear = keyof typeof eventsByYear // "2024" | "2025"
+  type EventType = (typeof eventsByYear)[EventYear][number]
+
+  const [active, setActive] = useState<EventType | boolean | null>(null)
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false)
-
   const ref = useRef<HTMLDivElement>(null)
 
-  const moreMenuItems = [
-    { name: "Faculty", link: "https://www.aucse.in/people", icon: "👨‍🏫" },
-    { name: "Timetable", link: "https://www.aucse.in/timetable", icon: "🗓️" },
-    { name: "Research", link: "https://www.aucse.in/more/research", icon: "🔬" },
-    { name: "Alumni", link: "https://www.aucse.in/people/alumni", icon: "🎓" },
-    { name: "Placements", link: "https://www.aucse.in/more/placement", icon: "💼" },
-    { name: "Explore", link: "https://www.aucse.in/more", icon: "📕" },
-    { name: "Our Team", link: "./dev", icon: "👥" },
+  // Enhanced dropdown menu items organized in three grids
+  const dropdownSections = [
+    {
+      title: "Academic",
+      gradient: "from-blue-500 to-purple-600",
+      items: [
+        {
+          name: "Faculty",
+          link: "https://www.aucse.in/people",
+          icon: GraduationCap,
+          description: "Meet our expert faculty",
+        },
+        {
+          name: "Timetable",
+          link: "https://www.aucse.in/timetable",
+          icon: Calendar,
+          description: "Class schedules & timing",
+        },
+        {
+          name: "Research",
+          link: "https://www.aucse.in/more/research",
+          icon: Microscope,
+          description: "Cutting-edge research",
+        },
+        { name: "Library", link: "#", icon: Library, description: "Digital & physical resources" },
+      ],
+    },
+    {
+      title: "Student Life",
+      gradient: "from-green-500 to-teal-600",
+      items: [
+        {
+          name: "Alumni",
+          link: "https://www.aucse.in/people/alumni",
+          icon: Users,
+          description: "Connect with graduates",
+        },
+        {
+          name: "Placements",
+          link: "https://www.aucse.in/more/placement",
+          icon: Briefcase,
+          description: "Career opportunities",
+        },
+        { name: "Campus Life", link: "#", icon: MapPin, description: "Student activities & events" },
+        { name: "Achievements", link: "#", icon: Trophy, description: "Student accomplishments" },
+      ],
+    },
+    {
+      title: "Resources",
+      gradient: "from-orange-500 to-red-600",
+      items: [
+        { name: "Explore", link: "https://www.aucse.in/more", icon: Globe, description: "Discover more features" },
+        { name: "Our Team", link: "./dev", icon: Users, description: "Development team" },
+        { name: "Support", link: "#", icon: HeadphonesIcon, description: "Get help & assistance" },
+        { name: "Resources", link: "#", icon: BookOpen, description: "Study materials & guides" },
+      ],
+    },
   ]
 
   // Refs for scroll animations
   const heroRef = useRef(null)
   const eventsRef = useRef(null)
   const storyRef = useRef(null)
-  const noticeRef = useRef(null)
+ 
   const featuresRef = useRef(null)
   const galleryRef = useRef(null)
   const testimonialsRef = useRef(null)
 
   // InView hooks for scroll animations
-
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" })
   const eventsInView = useInView(eventsRef, { once: true, margin: "-100px" })
-  const noticeInView = useInView(noticeRef, { once: true, margin: "-100px" })
+
   const featuresInView = useInView(featuresRef, { once: true, margin: "-100px" })
   const galleryInView = useInView(galleryRef, { once: true, margin: "-100px" })
-
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -214,20 +286,20 @@ const [active, setActive] = useState<EventType | boolean | null>(null);
   useOutsideClick(ref, () => setActive(null))
 
   // Animation variants
-const fadeInUp: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: easeInOut, 
+  const fadeInUp: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
     },
-  },
-};
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: easeInOut,
+      },
+    },
+  }
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -316,7 +388,6 @@ const fadeInUp: Variants = {
     ],
   }
 
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const getStatusColor = (status: string) => {
@@ -332,22 +403,21 @@ const fadeInUp: Variants = {
 
   return (
     <div className="relative w-full ">
-      
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
           <NavbarLogo />
           <div className="flex items-center space-x-1">
-          <NavItems items={navItems} />
-        
-          {/* More Dropdown */}
-            <div className="relative">
+            <NavItems items={navItems} />
+
+            {/* Enhanced More Dropdown */}
+            <div className="absolute top-0 right-20 flex items-center">
               <button
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
                 onMouseLeave={() => setIsMoreDropdownOpen(false)}
                 className="flex items-center space-x-1 text-neutral-600 dark:text-neutral-300 hover:text-blue-600 transition-colors duration-200 py-2"
               >
-                <NavbarButton variant="primary">More</NavbarButton>
+                <NavbarButton variant="secondary">More</NavbarButton>
                 <motion.svg
                   animate={{ rotate: isMoreDropdownOpen ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
@@ -359,39 +429,86 @@ const fadeInUp: Variants = {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </motion.svg>
               </button>
-
               <AnimatePresence>
                 {isMoreDropdownOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    initial={{ opacity: 0, y: -20, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                     onMouseEnter={() => setIsMoreDropdownOpen(true)}
                     onMouseLeave={() => setIsMoreDropdownOpen(false)}
-                    className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-200 dark:border-neutral-700 py-2 z-50"
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-[800px] bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden z-50"
                   >
-                    {moreMenuItems.map((item, index) => (
-                      <motion.a
-                        key={item.name}
-                        href={item.link}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        className="flex items-center space-x-3 px-4 py-3 text-neutral-700 dark:text-neutral-300 hover:bg-blue-50 dark:hover:bg-neutral-700 hover:text-blue-600 transition-all duration-200 group"
-                      >
-                        <span className="text-lg group-hover:scale-110 transition-transform duration-200">
-                          {item.icon}
-                        </span>
-                        <span className="font-medium">{item.name}</span>
-                      </motion.a>
-                    ))}
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 p-6 text-white">
+                      <h3 className="text-xl font-bold mb-2">Explore More</h3>
+                      <p className="text-blue-100 text-sm">Discover all the resources and opportunities available</p>
+                    </div>
+
+                    {/* Three Grid Sections */}
+                    <div className="grid grid-cols-3 gap-0">
+                      {dropdownSections.map((section, sectionIndex) => (
+                        <motion.div
+                          key={section.title}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: sectionIndex * 0.1 }}
+                          className="p-6 border-r border-neutral-200 dark:border-neutral-700 last:border-r-0"
+                        >
+                          {/* Section Header */}
+                          <div className={`bg-gradient-to-r ${section.gradient} p-3 rounded-lg mb-4`}>
+                            <h4 className="text-white font-semibold text-sm text-center">{section.title}</h4>
+                          </div>
+
+                          {/* Section Items */}
+                          <div className="space-y-3">
+                            {section.items.map((item, itemIndex) => (
+                              <motion.a
+                                key={item.name}
+                                href={item.link}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: sectionIndex * 0.1 + itemIndex * 0.05 }}
+                                className="group flex items-start space-x-3 p-3 rounded-xl hover:bg-gradient-to-r hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-700 transition-all duration-300 transform hover:scale-[1.02]"
+                              >
+                                <div
+                                  className={`p-2 rounded-lg bg-gradient-to-r ${section.gradient} group-hover:scale-110 transition-transform duration-300`}
+                                >
+                                  <item.icon className="h-4 w-4 text-white" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <h5 className="font-medium text-neutral-900 dark:text-neutral-100 text-sm group-hover:text-blue-600 transition-colors">
+                                      {item.name}
+                                    </h5>
+                                    <ChevronRight className="h-3 w-3 text-neutral-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300" />
+                                  </div>
+                                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-tight">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </motion.a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Footer */}
+                    <div className="bg-neutral-50 dark:bg-neutral-800 p-4 text-center">
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                        Need help?{" "}
+                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                          Contact Support
+                        </a>
+                      </p>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
-
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -400,7 +517,6 @@ const fadeInUp: Variants = {
             <NavbarLogo />
             <MobileNavToggle isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
           </MobileNavHeader>
-
           <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
             {navItems.map((item, idx) => (
               <a
@@ -422,14 +538,46 @@ const fadeInUp: Variants = {
       </Navbar>
 
       {/* Hero */}
-    <div className="h-auto mt-0 top-0 relative flex justify-center items-center">
-      <BannerSlider />
-
-      
+      <div className="h-auto mt-0 top-0 relative flex justify-center items-center">
+        <BannerSlider />
       </div>
-  
+      {/* Notice Section */}
+      <header className="flex justify-between items-center m-4 mx-6 p-6 rounded-2xl border border-slate-200/50  transition-all duration-300 ">
+        <div className="flex flex-col group cursor-pointer">
+          <div className="flex items-center space-x-2 mb-1">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+            <span className="text-sm text-blue-600 font-semibold tracking-wide uppercase group-hover:text-blue-700 transition-colors duration-300">
+              Our Notices
+            </span>
+            <Bell className="w-4 h-4 text-blue-500 group-hover:animate-bounce" />
+          </div>
 
-   
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+            Recent Updates
+          </h1>
+
+          <div className="h-0.5 w-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-500 mt-1"></div>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-100/50">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-xs font-medium text-slate-600">Live Updates</span>
+          </div>
+
+          <Button
+            variant="outline"
+            className="group relative overflow-hidden bg-white/50 border-slate-200 hover:border-blue-300 hover:bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <span className="relative z-10 font-medium text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
+              Explore More
+            </span>
+            <ArrowRight className="w-4 h-4 ml-2 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </Button>
+        </div>
+      </header>
+        <NoticeBoard />
       {/* About */}
       <motion.section
         ref={storyRef}
@@ -438,8 +586,9 @@ const fadeInUp: Variants = {
         variants={staggerContainer}
         className="py-20 bg-gray-50"
       >
-      <VisionMissionStory />
+        <VisionMissionStory />
       </motion.section>
+
       {/* Events Section replaced with Timeline */}
       <motion.section
         ref={eventsRef}
@@ -448,33 +597,37 @@ const fadeInUp: Variants = {
         variants={staggerContainer}
         className="py-20 bg-gray-50"
       >
-
         {/* Event Calender*/}
         <Timeline
           data={Object.entries(eventsByYear).flatMap(([year, events]) =>
-            events.map(event => ({
+            events.map((event) => ({
               title: `${event.title} (${year})`,
               content: (
                 <div className="mb-4">
-                  <div className="text-sm text-gray-600 mb-1 font-semibold">{event.date} | {event.time} | {event.venue}</div>
+                  <div className="text-sm text-gray-600 mb-1 font-semibold">
+                    {event.date} | {event.time} | {event.venue}
+                  </div>
                   <div className="mb-2 text-base text-gray-800 font-medium">{event.description}</div>
                   <div className="mb-2 text-gray-700 text-sm">{event.content}</div>
                   <div className="flex gap-2 mb-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>{event.status.charAt(0).toUpperCase() + event.status.slice(1)}</span>
-                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">{event.category}</span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>
+                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
+                    </span>
+                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                      {event.category}
+                    </span>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1">{event.ctaText}</Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1">
+                    {event.ctaText}
+                  </Button>
                 </div>
-              )
-            }))
+              ),
+            })),
           )}
         />
       </motion.section>
 
-      {/* Notice Board */}
-      <motion.div ref={noticeRef} initial="hidden" animate={noticeInView ? "visible" : "hidden"} variants={fadeInUp}>
-        <NoticeBoard />
-      </motion.div>
+
 
       {/* Feature Section */}
       <motion.div
@@ -484,9 +637,42 @@ const fadeInUp: Variants = {
         variants={staggerContainer}
         className="text-center bg-white"
       >
-        <motion.header variants={fadeInUp} className="p-2 bg-white text-center mt-4 mb-4">
-  <h1 className="text-2xl font-semibold m-2">Program Offered By Us</h1>
-</motion.header>
+        <motion.header variants={fadeInUp} className="p-2 bg-white text-start mt-4 mb-4">
+
+      <header className="flex justify-between items-center m-4 mx-6 p-6 rounded-2xl border border-slate-200/50  transition-all duration-300">
+        <div className="flex flex-col group cursor-pointer">
+          <div className="flex items-center space-x-2 mb-1">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+            <span className="text-sm text-blue-600 font-semibold tracking-wide uppercase group-hover:text-blue-700 transition-colors duration-300">
+              Programs Offered
+            </span>
+            <BookOpen className="w-4 h-4 text-blue-500 group-hover:animate-bounce" />
+          </div>
+
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+            Why Choose Us?
+          </h1>
+
+          <div className="h-0.5 w-0 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-500 mt-1"></div>
+        </div>
+
+        <div className="flex items-center space-x-4">
+
+
+          <Button
+            variant="outline"
+            className="group relative overflow-hidden bg-white/50 border-slate-200 hover:border-blue-300 hover:bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <span className="relative z-10 font-medium text-slate-700 group-hover:text-blue-600 transition-colors duration-300">
+              Explore More
+            </span>
+            <ArrowRight className="w-4 h-4 ml-2 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </Button>
+        </div>
+      </header>
+
+        </motion.header>
         <motion.div variants={fadeInUp}>
           <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem] p-6">
             {items.map((item, i) => (
@@ -512,8 +698,9 @@ const fadeInUp: Variants = {
         className="bg-white"
       >
         <motion.header variants={fadeInUp} className="p-2 bg-white text-center mt-5">
-          
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mt-8 sm:mt-12 md:mt-20 tracking-tight text-black">Gallery</h1>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold mt-8 sm:mt-12 md:mt-20 tracking-tight text-black">
+            Gallery
+          </h1>
         </motion.header>
         <motion.div variants={fadeInUp} className="relative overflow-hidden w-full h-full py-20 bg-white">
           <Carousel slides={slideData} />
@@ -524,107 +711,103 @@ const fadeInUp: Variants = {
       <TestimonialCarousel />
 
       {/* Faculty Section */}
-        <Component />
+      <Component />
+
       <footer className="relative bg-blue-900 mx-auto max-w-full px-10 pt-10">
-  {/* Columns Section */}
-  <div className="flex flex-col md:flex-row items-center gap-10 px-6">
-    {/* Logo and Socials for Desktop/Tablet */}
-    <div className="hidden lg:flex flex-col items-center flex-shrink-0">
-      <Image
-        src="/logo.png"
-        alt="Adamas Logo"
-        width={200}
-        height={144}
-        className="h-36 object-contain"
-      />
-      {/* Social Icons under logo for md+ */}
-      <div className="hidden md:flex flex-row items-center justify-center gap-6 mt-4">
-        <a href="tel:1234567890" aria-label="Call us">
-          <span className="text-pink-400 text-2xl">📞</span>
-        </a>
-        <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
-        </a>
-        <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-          <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
-        </a>
-        <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
-        </a>
-        <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
-        </a>
-      </div>
+        {/* Columns Section */}
+        <div className="flex flex-col md:flex-row items-center gap-10 px-6">
+          {/* Logo and Socials for Desktop/Tablet */}
+          <div className="hidden lg:flex flex-col items-center flex-shrink-0">
+            <Image src="/logo.png" alt="Adamas Logo" width={200} height={144} className="h-36 object-contain" />
+            {/* Social Icons under logo for md+ */}
+            <div className="hidden md:flex flex-row items-center justify-center gap-6 mt-4">
+              <a href="tel:1234567890" aria-label="Call us">
+                <span className="text-pink-400 text-2xl">📞</span>
+              </a>
+              <a
+                href="https://instagram.com/yourhandle"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
+              </a>
+              <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
+              </a>
+              <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
+              </a>
+              <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
+              </a>
+            </div>
+          </div>
+
+          {/* Navigation Columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full justify-center items-center text-center">
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer">Colleges</li>
+                <li className="hover:text-white cursor-pointer">History & Tours</li>
+                <li className="hover:text-white cursor-pointer">Public Engagement</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Study With Us</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer">UG Courses</li>
+                <li className="hover:text-white cursor-pointer">Grad Programs</li>
+                <li className="hover:text-white cursor-pointer">Online Learning</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Research</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer">Research Units</li>
+                <li className="hover:text-white cursor-pointer">Funding</li>
+                <li className="hover:text-white cursor-pointer">Impact Stories</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
+              <ul className="space-y-1 text-gray-400 text-lg">
+                <li className="hover:text-white cursor-pointer">Career Cell</li>
+                <li className="hover:text-white cursor-pointer">Placement</li>
+                <li className="hover:text-white cursor-pointer">Office</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="text-center text-sm text-gray-200 pb-4 pt-6">
+          © 2025 Adamas University. All rights reserved.
+        </div>
+
+        {/* Floating Social Icons for mobile only */}
+        <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-50 md:hidden">
+          <div className="flex flex-col items-center gap-3">
+            <a href="tel:1234567890" aria-label="Call us">
+              <span className="text-pink-400 text-2xl">📞</span>
+            </a>
+            <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
+            </a>
+            <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
+            </a>
+            <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
+            </a>
+            <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
-    {/* Navigation Columns */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full justify-center items-center text-center">
-      <div>
-        <h3 className="font-semibold text-white mb-4 text-[22px]">Explore Adamas</h3>
-        <ul className="space-y-1 text-gray-400 text-lg">
-          <li className="hover:text-white cursor-pointer">Colleges</li>
-          <li className="hover:text-white cursor-pointer">History & Tours</li>
-          <li className="hover:text-white cursor-pointer">Public Engagement</li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="font-semibold text-white mb-4 text-[22px]">Study With Us</h3>
-        <ul className="space-y-1 text-gray-400 text-lg">
-          <li className="hover:text-white cursor-pointer">UG Courses</li>
-          <li className="hover:text-white cursor-pointer">Grad Programs</li>
-          <li className="hover:text-white cursor-pointer">Online Learning</li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="font-semibold text-white mb-4 text-[22px]">Research</h3>
-        <ul className="space-y-1 text-gray-400 text-lg">
-          <li className="hover:text-white cursor-pointer">Research Units</li>
-          <li className="hover:text-white cursor-pointer">Funding</li>
-          <li className="hover:text-white cursor-pointer">Impact Stories</li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="font-semibold text-white mb-4 text-[22px]">Connect</h3>
-        <ul className="space-y-1 text-gray-400 text-lg">
-          <li className="hover:text-white cursor-pointer">Career Cell</li>
-          <li className="hover:text-white cursor-pointer">Placement</li>
-          <li className="hover:text-white cursor-pointer">Office</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  {/* Copyright */}
-  <div className="text-center text-sm text-gray-200 pb-4 pt-6">
-    © 2025 Adamas University. All rights reserved.
-  </div>
-
-  {/* Floating Social Icons for mobile only */}
-  <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-50 md:hidden">
-    <div className="flex flex-col items-center gap-3">
-      <a href="tel:1234567890" aria-label="Call us">
-        <span className="text-pink-400 text-2xl">📞</span>
-      </a>
-      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <Image src="/instagram.png" alt="Instagram" width={28} height={28} />
-      </a>
-      <a href="https://facebook.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-        <Image src="/facebook.png" alt="Facebook" width={28} height={28} />
-      </a>
-      <a href="https://youtube.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-        <Image src="/youtube.png" alt="YouTube" width={28} height={28} />
-      </a>
-      <a href="https://linkedin.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <Image src="/linkedin.png" alt="LinkedIn" width={28} height={28} />
-      </a>
-    </div>
-  </div>
-</footer>
-
-</div>
-    
   )
 }
 

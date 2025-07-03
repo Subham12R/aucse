@@ -66,14 +66,14 @@ export default function VisionMissionStory() {
 
       {/* Additional Story Section */}
       <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-800 rounded-3xl p-8 lg:p-12 text-white">
-        <div className="max-w-3xl">
+        <div className="max-w-5xl">
           <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-blue-200">ABOUT US</h3>
-          <p className="text-lg leading-relaxed mb-6">
-            Department of Computer Science & Engineering prepares students to address the most compelling challenges of the world, backed by sound knowledge, integrity, research, and innovation. The department provides options to the students for specialization in contemporary topics like Artificial Intelligence, Machine Learning, Data Science, Cyber Security and Forensics, Cloud Computing and so on. With state-of-the-art infrastructure, faculty of the highest professional standards, a carefully crafted curriculum, active industry-academia collaborations, and global exposure, we provide students with specialised knowledge and practical skills along with value-added courses to prepare them for life. The department also maintains a specialized research centre on high performance computing.
-          </p>
-          <p className="text-lg leading-relaxed opacity-90">
-The department provides options to the students for specialization in contemporary topics like Artificial Intelligence, Machine Learning, Data Science, Cyber Security and Forensics, Cloud Computing and so on. With state-of-the-art infrastructure, faculty of the highest professional standards, a carefully crafted curriculum, active industry-academia collaborations, and global exposure, we provide students with specialised knowledge and practical skills along with value-added courses to prepare them for life. The department also maintains a specialized research centre on high performance computing.
-          </p>
+              <blockquote className="text-zinc-200 mt-6 border-l-2 pl-6 italic">
+                 &quot; Department of Computer Science & Engineering prepares students to address the most compelling challenges of the world, backed by sound knowledge, integrity, research, and innovation. The department provides options to the students for specialization in contemporary topics like Artificial Intelligence, Machine Learning, Data Science, Cyber Security and Forensics, Cloud Computing and so on. With state-of-the-art infrastructure, faculty of the highest professional standards, a carefully crafted curriculum, active industry-academia collaborations, and global exposure, we provide students with specialised knowledge and practical skills along with value-added courses to prepare them for life. The department also maintains a specialized research centre on high performance computing.
+                  &quot;
+          </blockquote>
+
+
         </div>
       </div>
     </div>

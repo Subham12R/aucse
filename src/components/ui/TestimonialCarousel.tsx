@@ -210,8 +210,8 @@ const TestimonialCarousel: React.FC = () => {
   return (
     <section className="px-4 py-10 ">
       <div className="max-w-[1200px] mx-auto ">
-        <h2 className="text-4xl font-bold mb-4 text-center md:text-center lg:text-5xl">What our Student Says</h2>
-        <p className="text-gray-600 mb-10 mx-auto md:w-4/5 lg:w-3/5 text-center lg:text-[17px]">
+        <h2 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">What our Student Says</h2>
+        <p className="text-zinc-400 text-sm leading-none font-medium p-5 mb-4">
           Discover the voices of Adamas University. Our students share how
           academic rigor, mentorship, and real-world exposure helped shape their
           personal and professional journeys. Their stories reflect the vibrant

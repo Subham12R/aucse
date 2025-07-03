@@ -145,7 +145,7 @@ export default function Component() {
   }
 
   return (
-    <section className="flex justify-center w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+    <section className="flex justify-center w-full py-5 md:py-10 lg:py-10 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-float"></div>
@@ -156,10 +156,7 @@ export default function Component() {
       <div className="container px-4 md:px-6 relative z-10">
         {/* Header */}
         <div className={`text-center mb-16 ${isLoaded ? "animate-fade-in-up" : "opacity-0"}`}>
-          <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200 animate-bounce-subtle">
-            <Sparkles className="w-4 h-4 mr-2" />
-            Excellence in Education & Placements
-          </Badge>
+          
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent animate-gradient">
             Meet Our Distinguished Faculty &
             <br />
